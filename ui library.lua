@@ -238,7 +238,7 @@ function Library:Unload()
 	
 	self.Connections = {}
 	task.wait()
-	userinput.MouseIconEnabled = Library.MouseState
+	userinput.MouseIconEnabled = Library.MouseState.Enabled
 	self = nil
 end
 --
@@ -566,19 +566,20 @@ Library:Connection(userinput:GetPropertyChangedSignal("MouseIconEnabled"), funct
 	if Library.MouseState.Ignore then
 		Library.MouseState.Ignore = false
 	else
-		Library.MouseState = userinput.MouseIconEnabled
+		Library.MouseState.Enabled = userinput.MouseIconEnabled
 	end
-	userinput.MouseIconEnabled = Toggled and false or Library.MouseState
+	userinput.MouseIconEnabled = Library.Open and false
 end)
 
 function Library:SetOpen()
 	Toggled = not Toggled
 	Library.Holder.Visible = Toggled
 	Library.MouseState.Ignore = Toggled
-	userinput.MouseIconEnabled = not Toggled
 	Library.Open = Toggled
-	if not Toggled then
-		userinput.MouseIconEnabled = Library.MouseState
+	if Toggled then
+		userinput.MouseIconEnabled = not Toggled
+	else
+		userinput.MouseIconEnabled = Library.MouseState.Enabled
 	end
 end
 --
