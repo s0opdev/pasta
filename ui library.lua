@@ -495,7 +495,6 @@ function Library:LoadConfig(Config)
 	end
 end
 --
-local Toggled = Library.Open
 local ManagementCache = {}
 function Library:ManageTransparency(Object, TableName, FadeTime, State)
 	if not ManagementCache[TableName] then
@@ -560,28 +559,37 @@ function Library:ManageTransparency(Object, TableName, FadeTime, State)
 	end
 end
 
-Library.MouseState = {Enabled = userinput.MouseIconEnabled, Ignore = Toggled}
+Library.MouseState = {
+    Enabled = userinput.MouseIconEnabled,
+    PreventOverride = false
+}
 
 Library:Connection(userinput:GetPropertyChangedSignal("MouseIconEnabled"), function()
-	if Library.MouseState.Ignore then
-		Library.MouseState.Ignore = false
-	else
-		Library.MouseState.Enabled = userinput.MouseIconEnabled
-	end
-	userinput.MouseIconEnabled = Library.Open and false
+    if Library.MouseState.PreventOverride then
+        Library.MouseState.PreventOverride = false
+    else
+        Library.MouseState.Enabled = userinput.MouseIconEnabled
+    end
+
+    if Library.Open and userinput.MouseIconEnabled then
+        userinput.MouseIconEnabled = false
+    end
 end)
 
 function Library:SetOpen()
-	Toggled = not Toggled
-	Library.Holder.Visible = Toggled
-	Library.MouseState.Ignore = Toggled
-	Library.Open = Toggled
-	if Toggled then
-		userinput.MouseIconEnabled = not Toggled
-	else
-		userinput.MouseIconEnabled = Library.MouseState.Enabled
-	end
+    Library.Open = not Library.Open
+    Library.Holder.Visible = Library.Open
+    Library.MouseState.PreventOverride = Library.Open
+
+    if Library.Open then
+        if userinput.MouseIconEnabled then
+            userinput.MouseIconEnabled = false
+        end
+    elseif userinput.MouseIconEnabled ~= Library.MouseState.Enabled then
+        userinput.MouseIconEnabled = Library.MouseState.Enabled
+    end
 end
+
 --
 function Library:ChangeAccent()
 	for _, Object in next, Library.ThemeObjects do
