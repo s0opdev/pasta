@@ -572,6 +572,7 @@ Library:Connection(userinput:GetPropertyChangedSignal("MouseIconEnabled"), funct
     end
 
     if Library.Open and userinput.MouseIconEnabled then
+		task.wait()
         userinput.MouseIconEnabled = false
     end
 end)
