@@ -238,7 +238,7 @@ function Library:Unload()
 	
 	self.Connections = {}
 	task.wait()
-	userinput.MouseIconEnabled = mousestate
+	userinput.MouseIconEnabled = Library.MouseState
 	self = nil
 end
 --
@@ -560,20 +560,25 @@ function Library:ManageTransparency(Object, TableName, FadeTime, State)
 	end
 end
 
-mousestate = userinput.MouseIconEnabled
+Library.MouseState = {Enabled = userinput.MouseIconEnabled, Ignore = Toggled}
 
 Library:Connection(userinput:GetPropertyChangedSignal("MouseIconEnabled"), function()
-	mousestate = userinput.MouseIconEnabled
-	userinput.MouseIconEnabled = Toggled and false or mousestate
+	if Library.MouseState.Ignore then
+		Library.MouseState.Ignore = false
+	else
+		Library.MouseState = userinput.MouseIconEnabled
+	end
+	userinput.MouseIconEnabled = Toggled and false or Library.MouseState
 end)
 
 function Library:SetOpen()
 	Toggled = not Toggled
 	Library.Holder.Visible = Toggled
+	Library.MouseState.Ignore = Toggled
 	userinput.MouseIconEnabled = not Toggled
 	Library.Open = Toggled
 	if not Toggled then
-		userinput.MouseIconEnabled = mousestate
+		userinput.MouseIconEnabled = Library.MouseState
 	end
 end
 --
