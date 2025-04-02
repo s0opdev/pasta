@@ -106,9 +106,6 @@ end
 if not isfile(Library.Folder .. "val.jpg") then
 	writefile(Library.Folder .. "val.jpg", game:HttpGet("https://raw.githubusercontent.com/s0opdev/pasta/main/val.png?raw=true"))
 end
-if not isfile(Library.Folder .. "cursor.jpg") then
-	writefile(Library.Folder .. "cursor.jpg", game:HttpGet("https://raw.githubusercontent.com/s0opdev/pasta/main/cursor.png?raw=true"))
-end
 if not isfile(Library.Folder .. "highlight.jpg") then
 	writefile(Library.Folder .. "highlight.jpg", game:HttpGet("https://raw.githubusercontent.com/s0opdev/pasta/main/highlight.png?raw=true"))
 end
@@ -218,15 +215,6 @@ function Library:Unload()
 	Library:SetOpen()
 	Library.KeyList:SetVisible(false)
 	task.wait(0.2)
-	for i, _ in pairs(Flags) do
-		local toggle = Library.Toggles[i]
-		if toggle then
-			toggle:Set(false)
-		end
-	end
-	task.wait()
-	self.ScreenGui:Destroy()
-	task.wait()
 	for _, v in ipairs(Library.Connections) do
 		v:Disconnect()
 	end
@@ -235,10 +223,16 @@ function Library:Unload()
 			restorefunction(v)
 		end
 	end
-	
-	self.Connections = {}
 	task.wait()
-	userinput.MouseIconEnabled = Library.MouseState.Enabled
+	for i, _ in pairs(Flags) do
+		local toggle = Library.Toggles[i]
+		if toggle then
+			toggle:Set(false)
+		end
+	end
+	task.wait()
+	self.ScreenGui:Destroy()
+	self.Connections = {}
 	self = nil
 end
 --
@@ -559,36 +553,9 @@ function Library:ManageTransparency(Object, TableName, FadeTime, State)
 	end
 end
 
-Library.MouseState = {
-    Enabled = userinput.MouseIconEnabled,
-    PreventOverride = false
-}
-
-Library:Connection(userinput:GetPropertyChangedSignal("MouseIconEnabled"), function()
-    if Library.MouseState.PreventOverride then
-        Library.MouseState.PreventOverride = false
-    else
-        Library.MouseState.Enabled = userinput.MouseIconEnabled
-    end
-
-    if Library.Open and userinput.MouseIconEnabled then
-		task.wait()
-        userinput.MouseIconEnabled = false
-    end
-end)
-
 function Library:SetOpen()
     Library.Open = not Library.Open
     Library.Holder.Visible = Library.Open
-    Library.MouseState.PreventOverride = Library.Open
-
-    if Library.Open then
-        if userinput.MouseIconEnabled then
-            userinput.MouseIconEnabled = false
-        end
-    elseif userinput.MouseIconEnabled ~= Library.MouseState.Enabled then
-        userinput.MouseIconEnabled = Library.MouseState.Enabled
-    end
 end
 
 --
@@ -1646,18 +1613,6 @@ do
 			TextSize = Library.FontSize,
 			TextStrokeTransparency = 0
 		})
-		local cursor = Library:Create("ImageLabel", {
-			Size = UDim2.new(0, 18, 0, 18),
-			BackgroundTransparency = 1,
-			ImageColor3 = "Accent",
-			Image = getcustomasset(Library.Folder .. "cursor.jpg"),
-			ZIndex = 1020000011,
-			Parent = Library.ScreenGui,
-		})
-		Library:Connection(runserv.RenderStepped, function()
-			cursor.Position = UDim2.new(0, Mouse.X - 6, 0, Mouse.Y - 2)
-			cursor.Visible = Library.Open
-		end)
 		--
 		Library:KeybindList()
 		Library.Holder = Outline
