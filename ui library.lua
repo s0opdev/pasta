@@ -68,6 +68,7 @@ local Library = {
 	};
 	Connections = {};
 	HookedFunctions = {};
+	ChangedUpValues = {};
 	Font = nil;
 	FontSize = 12;
 	Notifs = {};
@@ -211,12 +212,34 @@ function Library:RestoreFunction(Function)
 	end
 end
 
+function Library:SetUpValue(UpValueFunction, UpValueNumber, NewUpValue)
+	local UpValue = getupvalue(UpValueFunction, UpValueNumber)
+	setupvalue(UpValueFunction, UpValueNumber, NewUpValue)
+	Library.ChangedUpValues[UpValueFunction] = {UpValueNumber, UpValue}
+	return UpValue
+end
+
+function Library:RestoreUpValue(UpValueFunction, UpValue)
+	for UpValueFunc, Table in Library.ChangedUpValues do
+		if UpValueFunc == UpValueFunction and Table[1] == UpValue then
+			setupvalue(UpValueFunction, Table[1], Table[2])
+			UpValueFunc = nil
+			break
+		end
+	end
+	restorefunction(UpValueFunction)
+end
+
 function Library:Unload()
 	Library:SetOpen()
 	Library.KeyList:SetVisible(false)
 	task.wait(0.2)
 	for _, v in ipairs(Library.Connections) do
 		v:Disconnect()
+	end
+	for UpValueFunc, Table in Library.ChangedUpValues do
+		setupvalue(UpValueFunc, Table[1], Table[2])
+		restorefunction(UpValueFunc)
 	end
 	for _, v in next, Library.HookedFunctions do
 		if isfunctionhooked(v) then
