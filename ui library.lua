@@ -227,7 +227,9 @@ function Library:RestoreUpValue(UpValueFunction, UpValue)
 			break
 		end
 	end
-	restorefunction(UpValueFunction)
+	if not table.find(Library.HookedFunctions, UpValueFunction) then
+		restorefunction(UpValueFunction)
+	end
 end
 
 function Library:Unload()
