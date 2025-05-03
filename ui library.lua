@@ -811,127 +811,455 @@ function Library:LoadConfigTab(Window)
 				CFGList:Set(SelectedConfig)
 			end
 		end
-		PresetThemes:Dropdown({
-			Name = "Presets",
-			Flag = "UI/Presets",
-			Options = {
-				"Tokyo Night",
-				"Kanagawa",
-				"Quartz",
-				"BBot",
-				"Fatality",
-				"Jester",
-				"Mint",
-				"Ubuntu",
-				"Abyss",
-				"Neverlose",
-				"Aimware",
-				"Youtube",
-				"Gamesense",
-				"Onetap",
-				"Entropy",
-				"Interwebz",
-				"Dracula",
-				"Spotify",
-				"Sublime",
-				"Vape",
-				"Neko",
-				"Corn",
-				"Minecraft",
-				"Nord",
-				"Monokai",
-				"Cyberpunk",
-				"Solarized Dark",
-				"Gruvbox",
-				"Night Owl",
-				"Arc Dark",
-				"Catppuccin",
-				"Tomorrow Night",
-				"Molokai",
-				"Material Palenight",
-				"Oceanic Next",
-				"Spacegray",
-				"PaperColor Dark",
-				"Edge",
-				"One Dark",
-				"Tokyo Dark",
-				"Phantom",
-				"Lavender Fog",
-				"Neon Abyss",
-				"Rust",
-				"Industrial",
-				"Bubblegum",
-				"Matrix",
-				"Frostbyte",
-				"Cream Soda",
-				"Solarized Light",
-				"Pastel Dream",
-				"Cobalt Blue",
-				"Desert",
-				"Firewatch",
-				"Charcoal",
-				"Taffy"
+PresetThemes:Dropdown({
+	Name = "Presets",
+	Flag = "UI/Presets",
+	Options = {
+		"Tokyo Night",
+		"Kanagawa",						
+		"Quartz",
+		"BBot",
+		"Fatality",
+		"Jester",
+		"Mint",
+		"Ubuntu",
+		"Abyss",
+		"Neverlose",
+		"Aimware",
+		"Youtube",
+		"Gamesense",
+		"Onetap",
+		"Entropy",
+		"Interwebz",
+		"Dracula",
+		"Spotify",
+		"Sublime",
+		"Vape",
+		"Neko",
+		"Corn",
+		"Minecraft",
+		"Nord",
+		"Monokai",
+		"Cyberpunk",
+		"Solarized Dark",
+		"Gruvbox",
+		"Night Owl",
+		"Arc Dark",
+		"Catppuccin",
+		"Tomorrow Night",
+		"Molokai",
+		"Material Palenight",
+		"Oceanic Next",
+		"Spacegray",
+		"PaperColor Dark",
+		"Edge",
+		"One Dark",
+		"Tokyo Dark",
+		"DOS",
+		"CRT Green",
+		"Matrix",
+		"Old Terminal",
+		"Midnight Retro",
+		"Neo Noir",
+		"Dark Cherry",
+		"Vintage Code",
+		"Oblivion",
+		"Nocturne",
+		"Zerox",
+		"Void",
+		"Carbon",
+		"Black Ice",
+		"Terminal Wave"
+	},
+	State = "Tokyo Night",
+	Callback = function(v)
+		local themes = {
+			["Tokyo Night"] = {
+				FontColor = "#c0caf5",
+				MainColor = "#1a1b26",
+				Accent = "#7aa2f7",
+				BackgroundColor = "#131313",
+				OutlineColor = "#000000"
 			},
-			State = "Tokyo Night",
-			Callback = function(v)
-				local themes = {
-					["Tokyo Night"] = {FontColor = "#c0caf5", MainColor = "#1a1b26", Accent = "#7aa2f7", BackgroundColor = "#16161e", OutlineColor = "#000000"},
-					Kanagawa = {FontColor = "#dcd7ba", MainColor = "#1f1f28", Accent = "#957fb8", BackgroundColor = "#16161d", OutlineColor = "#000000"},
-					Quartz = {FontColor = "#ffffff", MainColor = "#191919", Accent = "#8e44ad", BackgroundColor = "#121212", OutlineColor = "#000000"},
-					BBot = {FontColor = "#ffffff", MainColor = "#202020", Accent = "#00bfff", BackgroundColor = "#151515", OutlineColor = "#000000"},
-					Fatality = {FontColor = "#f04747", MainColor = "#1e1e1e", Accent = "#ff5555", BackgroundColor = "#121212", OutlineColor = "#000000"},
-					Jester = {FontColor = "#ffffff", MainColor = "#2a2a2a", Accent = "#ff00ff", BackgroundColor = "#1a1a1a", OutlineColor = "#000000"},
-					Mint = {FontColor = "#ffffff", MainColor = "#2d2d2d", Accent = "#98ff98", BackgroundColor = "#1a1a1a", OutlineColor = "#000000"},
-					Ubuntu = {FontColor = "#ffffff", MainColor = "#300a24", Accent = "#77216f", BackgroundColor = "#2c001e", OutlineColor = "#000000"},
-					Abyss = {FontColor = "#ffffff", MainColor = "#000c18", Accent = "#005f87", BackgroundColor = "#000a12", OutlineColor = "#000000"},
-					Neverlose = {FontColor = "#00ffff", MainColor = "#18191a", Accent = "#00ffff", BackgroundColor = "#0e0e0f", OutlineColor = "#000000"},
-					Aimware = {FontColor = "#ffffff", MainColor = "#1c1c1c", Accent = "#d73232", BackgroundColor = "#101010", OutlineColor = "#000000"},
-					Youtube = {FontColor = "#ffffff", MainColor = "#ff0000", Accent = "#282828", BackgroundColor = "#1a1a1a", OutlineColor = "#000000"},
-					Gamesense = {FontColor = "#d8dee9", MainColor = "#2e3440", Accent = "#a3be8c", BackgroundColor = "#3b4252", OutlineColor = "#000000"},
-					Onetap = {FontColor = "#ffffff", MainColor = "#101010", Accent = "#357ec7", BackgroundColor = "#080808", OutlineColor = "#000000"},
-					Entropy = {FontColor = "#c0c0c0", MainColor = "#0f0f0f", Accent = "#ff6347", BackgroundColor = "#050505", OutlineColor = "#000000"},
-					Interwebz = {FontColor = "#ff55ff", MainColor = "#1b1b1b", Accent = "#ff55ff", BackgroundColor = "#0a0a0a", OutlineColor = "#000000"},
-					Dracula = {FontColor = "#f8f8f2", MainColor = "#282a36", Accent = "#bd93f9", BackgroundColor = "#1e1f29", OutlineColor = "#000000"},
-					Spotify = {FontColor = "#ffffff", MainColor = "#191414", Accent = "#1db954", BackgroundColor = "#121212", OutlineColor = "#000000"},
-					Sublime = {FontColor = "#ffffff", MainColor = "#2d2d2d", Accent = "#f92672", BackgroundColor = "#1e1e1e", OutlineColor = "#000000"},
-					Vape = {FontColor = "#00bfff", MainColor = "#141414", Accent = "#00bfff", BackgroundColor = "#0f0f0f", OutlineColor = "#000000"},
-					Neko = {FontColor = "#ffb6c1", MainColor = "#2e2e2e", Accent = "#ff69b4", BackgroundColor = "#1f1f1f", OutlineColor = "#000000"},
-					Corn = {FontColor = "#fff8dc", MainColor = "#333300", Accent = "#ffd700", BackgroundColor = "#1a1a00", OutlineColor = "#000000"},
-					Minecraft = {FontColor = "#ffffff", MainColor = "#3c3c3c", Accent = "#00ff00", BackgroundColor = "#1e1e1e", OutlineColor = "#000000"},
-					Nord = {FontColor = "#d8dee9", MainColor = "#2e3440", Accent = "#88c0d0", BackgroundColor = "#3b4252", OutlineColor = "#000000"},
-					Monokai = {FontColor = "#f8f8f2", MainColor = "#272822", Accent = "#f92672", BackgroundColor = "#1e1f1c", OutlineColor = "#000000"},
-					Cyberpunk = {FontColor = "#f0f", MainColor = "#000000", Accent = "#0ff", BackgroundColor = "#0a0a0a", OutlineColor = "#000"},
-					["Solarized Dark"] = {FontColor = "#839496", MainColor = "#002b36", Accent = "#b58900", BackgroundColor = "#073642", OutlineColor = "#000000"},
-					Gruvbox = {FontColor = "#ebdbb2", MainColor = "#282828", Accent = "#fe8019", BackgroundColor = "#1d2021", OutlineColor = "#000000"},
-					["Night Owl"] = {FontColor = "#d6deeb", MainColor = "#011627", Accent = "#82aaff", BackgroundColor = "#0b2942", OutlineColor = "#000000"},
-					["Arc Dark"] = {FontColor = "#eeeeee", MainColor = "#383c4a", Accent = "#5294e2", BackgroundColor = "#2f343f", OutlineColor = "#000000"},
-					Catppuccin = {FontColor = "#cad3f5", MainColor = "#24273a", Accent = "#8aadf4", BackgroundColor = "#1e2030", OutlineColor = "#000000"},
-					["Tomorrow Night"] = {FontColor = "#c5c8c6", MainColor = "#1d1f21", Accent = "#81a2be", BackgroundColor = "#282a2e", OutlineColor = "#000000"},
-					Molokai = {FontColor = "#f8f8f2", MainColor = "#1b1d1e", Accent = "#fd971f", BackgroundColor = "#131313", OutlineColor = "#000000"},
-					["Material Palenight"] = {FontColor = "#a6accd", MainColor = "#292d3e", Accent = "#c792ea", BackgroundColor = "#1e1e2e", OutlineColor = "#000000"},
-					["Oceanic Next"] = {FontColor = "#d8dee9", MainColor = "#1b2b34", Accent = "#6699cc", BackgroundColor = "#22303c", OutlineColor = "#000000"},
-					Spacegray = {FontColor = "#ffffff", MainColor = "#2e343d", Accent = "#b3b9c5", BackgroundColor = "#1c1f26", OutlineColor = "#000000"},
-					["PaperColor Dark"] = {FontColor = "#d0d0d0", MainColor = "#1c1c1c", Accent = "#afd700", BackgroundColor = "#121212", OutlineColor = "#000000"},
-					Edge = {FontColor = "#c8c8c8", MainColor = "#262729", Accent = "#61afef", BackgroundColor = "#1e2124", OutlineColor = "#000000"},
-					["One Dark"] = {FontColor = "#abb2bf", MainColor = "#282c34", Accent = "#61afef", BackgroundColor = "#21252b", OutlineColor = "#000000"},
-					["Tokyo Dark"] = {FontColor = "#a9b1d6", MainColor = "#1a1b26", Accent = "#ff007c", BackgroundColor = "#16161e", OutlineColor = "#000000"},
-					Phantom = {FontColor = "#d1cfe2", MainColor = "#1b1b2f", Accent = "#7261a3", BackgroundColor = "#0f0f1f", OutlineColor = "#000000"},
-					["Lavender Fog"] = {FontColor = "#f5e9ff", MainColor = "#3d2c41", Accent = "#a67bc3", BackgroundColor = "#2c1e3e", OutlineColor = "#000000"},
-					["Neon Abyss"] = {FontColor = "#ffffff", MainColor = "#0d0d0d", Accent = "#ff00ff", BackgroundColor = "#1a0033", OutlineColor = "#3f006f"},
-					Rust = {FontColor = "#fcefe3", MainColor = "#3b1f0f", Accent = "#b85c38", BackgroundColor = "#2a1206", OutlineColor = "#1c0c04"},
-					Industrial = {FontColor = "#e0e0e0", MainColor = "#3c3c3c", Accent = "#999999", BackgroundColor = "#1f1f1f", OutlineColor = "#2a2a2a"},
-					Bubblegum = {FontColor = "#ffffff", MainColor = "#ff6fa3", Accent = "#ffc1e3", BackgroundColor = "#ff4c91", OutlineColor = "#cc2f6d"},
-					Matrix = {FontColor = "#00ff00", MainColor = "#000000", Accent = "#007700", BackgroundColor = "#010101", OutlineColor = "#003300"},
-					Frostbyte = {FontColor = "#e0f7ff", MainColor = "#0c2d3a", Accent = "#74d9ff", BackgroundColor = "#051a24", OutlineColor = "#000000"},
-					["Cream Soda"] = {FontColor = "#2c2c2c", MainColor = "#fff5e1", Accent = "#f7c59f", BackgroundColor = "#ffe8cc", OutlineColor = "#f4d3b2"},
-					["Solarized Light"] = {FontColor = "#586e75", MainColor = "#fdf6e3", Accent = "#268bd2", BackgroundColor = "#eee8d5", OutlineColor = "#93a1a1"},
-					["Pastel Dream"] = {FontColor = "#4a4a4a", MainColor = "#ffcad4", Accent = "#b5ead7", BackgroundColor = "#f3f3f3", OutlineColor = "#e5e5e5"},
-					["Cobalt Blue"] = {FontColor = "#ffffff", MainColor = "#002366", Accent = "#0059b3", BackgroundColor = "#001a33", OutlineColor = "#000000"},
-					Desert = {FontColor = "#3b2f2f", MainColor = "#c19a6b", Accent = "#d9a066", BackgroundColor = "#a67c52", OutlineColor = "#5a3e2b"},
-					Firewatch = {FontColor = "#ffffff", MainColor = "#2c0e3a", Accent = "#ff6e40", BackgroundColor = "#1a0623", OutlineColor = "#000000"},
-					Charcoal = {FontColor = "#cccccc", MainColor = "#2b2b2b", Accent = "#444444", BackgroundColor = "#1a1a1a", OutlineColor = "#000000"},
-					Taffy = {FontColor = "#fff0f5", MainColor = "#ffaec9", Accent = "#ff69b4", BackgroundColor = "#ffc0cb", OutlineColor = "#d36ba6"}
-				}
+			["Kanagawa"] = {
+				FontColor = "#dcd7ba",
+				MainColor = "#1f1f28",
+				Accent = "#957fb8",
+				BackgroundColor = "#16161d",
+				OutlineColor = "#000000"
+			},
+			["Quartz"] = {
+				FontColor = "#e0def4",
+				MainColor = "#191724",
+				Accent = "#9ccfd8",
+				BackgroundColor = "#1f1d2e",
+				OutlineColor = "#000000"
+			},
+			["BBot"] = {
+				FontColor = "#ffffff",
+				MainColor = "#000000",
+				Accent = "#00ff00",
+				BackgroundColor = "#111111",
+				OutlineColor = "#000000"
+			},
+			["Fatality"] = {
+				FontColor = "#ffffff",
+				MainColor = "#151515",
+				Accent = "#ff0000",
+				BackgroundColor = "#0f0f0f",
+				OutlineColor = "#000000"
+			},
+			["Jester"] = {
+				FontColor = "#ffffff",
+				MainColor = "#1e1e1e",
+				Accent = "#800080",
+				BackgroundColor = "#121212",
+				OutlineColor = "#000000"
+			},
+			["Mint"] = {
+				FontColor = "#c5f5c5",
+				MainColor = "#1d2b1d",
+				Accent = "#00ff99",
+				BackgroundColor = "#101c10",
+				OutlineColor = "#000000"
+			},
+			["Ubuntu"] = {
+				FontColor = "#eeeeee",
+				MainColor = "#2c001e",
+				Accent = "#dd4814",
+				BackgroundColor = "#2e2a2a",
+				OutlineColor = "#000000"
+			},
+			["Abyss"] = {
+				FontColor = "#ffffff",
+				MainColor = "#000c18",
+				Accent = "#005f87",
+				BackgroundColor = "#000000",
+				OutlineColor = "#000000"
+			},
+			["Neverlose"] = {
+				FontColor = "#add8e6",
+				MainColor = "#1a1a1a",
+				Accent = "#5f9ea0",
+				BackgroundColor = "#0a0a0a",
+				OutlineColor = "#000000"
+			},
+			["Aimware"] = {
+				FontColor = "#ffffff",
+				MainColor = "#1e1e1e",
+				Accent = "#ff0000",
+				BackgroundColor = "#121212",
+				OutlineColor = "#000000"
+			},
+			["Youtube"] = {
+				FontColor = "#ffffff",
+				MainColor = "#0f0f0f",
+				Accent = "#ff0000",
+				BackgroundColor = "#181818",
+				OutlineColor = "#000000"
+			},
+			["Gamesense"] = {
+				FontColor = "#b4b4b4",
+				MainColor = "#1a1a1a",
+				Accent = "#5ee37c",
+				BackgroundColor = "#121212",
+				OutlineColor = "#000000"
+			},
+			["Onetap"] = {
+				FontColor = "#ffffff",
+				MainColor = "#2a2a2a",
+				Accent = "#7a7a7a",
+				BackgroundColor = "#1a1a1a",
+				OutlineColor = "#000000"
+			},
+			["Entropy"] = {
+				FontColor = "#00ffff",
+				MainColor = "#000000",
+				Accent = "#ff00ff",
+				BackgroundColor = "#0f0f0f",
+				OutlineColor = "#000000"
+			},
+			["Interwebz"] = {
+				FontColor = "#ffffff",
+				MainColor = "#1f1f1f",
+				Accent = "#8a2be2",
+				BackgroundColor = "#101010",
+				OutlineColor = "#000000"
+			},
+			["Dracula"] = {
+				FontColor = "#f8f8f2",
+				MainColor = "#282a36",
+				Accent = "#bd93f9",
+				BackgroundColor = "#1e1f29",
+				OutlineColor = "#000000"
+			},
+			["Spotify"] = {
+				FontColor = "#ffffff",
+				MainColor = "#191414",
+				Accent = "#1db954",
+				BackgroundColor = "#121212",
+				OutlineColor = "#000000"
+			},
+			["Sublime"] = {
+				FontColor = "#f8f8f2",
+				MainColor = "#2b2b2b",
+				Accent = "#f92672",
+				BackgroundColor = "#272822",
+				OutlineColor = "#000000"
+			},
+			["Vape"] = {
+				FontColor = "#ffffff",
+				MainColor = "#1e1e1e",
+				Accent = "#007acc",
+				BackgroundColor = "#121212",
+				OutlineColor = "#000000"
+			},
+			["Neko"] = {
+				FontColor = "#ffb6c1",
+				MainColor = "#1a1a2e",
+				Accent = "#ff69b4",
+				BackgroundColor = "#121212",
+				OutlineColor = "#000000"
+			},
+			["Corn"] = {
+				FontColor = "#f7e7ce",
+				MainColor = "#3e2f1c",
+				Accent = "#ffdb58",
+				BackgroundColor = "#2b1d0e",
+				OutlineColor = "#000000"
+			},
+			["Minecraft"] = {
+				FontColor = "#ffffff",
+				MainColor = "#0c3b0c",
+				Accent = "#00ff00",
+				BackgroundColor = "#0a2a0a",
+				OutlineColor = "#000000"
+			},
+			["Nord"] = {
+				FontColor = "#d8dee9",
+				MainColor = "#2e3440",
+				Accent = "#81a1c1",
+				BackgroundColor = "#3b4252",
+				OutlineColor = "#000000"
+			},
+			["Monokai"] = {
+				FontColor = "#f8f8f2",
+				MainColor = "#272822",
+				Accent = "#f92672",
+				BackgroundColor = "#1e1e1e",
+				OutlineColor = "#000000"
+			},
+			["Cyberpunk"] = {
+				FontColor = "#00ffff",
+				MainColor = "#0f0f0f",
+				Accent = "#ff00ff",
+				BackgroundColor = "#1a1a1a",
+				OutlineColor = "#000000"
+			},
+			["Solarized Dark"] = {
+				FontColor = "#839496",
+				MainColor = "#002b36",
+				Accent = "#268bd2",
+				BackgroundColor = "#073642",
+				OutlineColor = "#000000"
+			},
+			["Gruvbox"] = {
+				FontColor = "#ebdbb2",
+				MainColor = "#282828",
+				Accent = "#d79921",
+				BackgroundColor = "#1d2021",
+				OutlineColor = "#000000"
+			},
+			["Night Owl"] = {
+				FontColor = "#d6deeb",
+				MainColor = "#011627",
+				Accent = "#82aaff",
+				BackgroundColor = "#0b1e2d",
+				OutlineColor = "#000000"
+			},
+			["Arc Dark"] = {
+				FontColor = "#ffffff",
+				MainColor = "#2f343f",
+				Accent = "#5294e2",
+				BackgroundColor = "#1e232a",
+				OutlineColor = "#000000"
+			},
+			["Catppuccin"] = {
+				FontColor = "#cdd6f4",
+				MainColor = "#1e1e2e",
+				Accent = "#f38ba8",
+				BackgroundColor = "#181825",
+				OutlineColor = "#000000"
+			},
+			["Tomorrow Night"] = {
+				FontColor = "#cccccc",
+				MainColor = "#1d1f21",
+				Accent = "#81a2be",
+				BackgroundColor = "#282a2e",
+				OutlineColor = "#000000"
+			},
+			["Molokai"] = {
+				FontColor = "#f8f8f2",
+				MainColor = "#1b1d1e",
+				Accent = "#fd971f",
+				BackgroundColor = "#272822",
+				OutlineColor = "#000000"
+			},
+			["Material Palenight"] = {
+				FontColor = "#a6accd",
+				MainColor = "#292d3e",
+				Accent = "#c792ea",
+				BackgroundColor = "#1b1d2b",
+				OutlineColor = "#000000"
+			},
+			["Oceanic Next"] = {
+				FontColor = "#d8dee9",
+				MainColor = "#1b2b34",
+				Accent = "#6699cc",
+				BackgroundColor = "#343d46",
+				OutlineColor = "#000000"
+			},
+			["Spacegray"] = {
+				FontColor = "#ffffff",
+				MainColor = "#2b303b",
+				Accent = "#c594c5",
+				BackgroundColor = "#343d46",
+				OutlineColor = "#000000"
+			},
+			["PaperColor Dark"] = {
+				FontColor = "#d0d0d0",
+				MainColor = "#1c1c1c",
+				Accent = "#af5f5f",
+				BackgroundColor = "#262626",
+				OutlineColor = "#000000"
+			},
+			["Edge"] = {
+				FontColor = "#bcbcbc",
+				MainColor = "#1c1f26",
+				Accent = "#528bff",
+				BackgroundColor = "#2c323c",
+				OutlineColor = "#000000"
+			},
+			["One Dark"] = {
+				FontColor = "#abb2bf",
+				MainColor = "#282c34",
+				Accent = "#61afef",
+				BackgroundColor = "#21252b",
+				OutlineColor = "#000000"
+			},
+			["Tokyo Dark"] = {
+				FontColor = "#a9b1d6",
+				MainColor = "#1a1b26",
+				Accent = "#7aa2f7",
+				BackgroundColor = "#131313",
+				OutlineColor = "#000000"
+			},
+			["DOS"] = {
+				FontColor = "#00FF00",
+				MainColor = "#000000",
+				Accent = "#00AA00",
+				BackgroundColor = "#000000",
+				OutlineColor = "#222222"
+			},
+			["CRT Green"] = {
+				FontColor = "#7FFF00",
+				MainColor = "#101010",
+				Accent = "#00FF00",
+				BackgroundColor = "#050505",
+				OutlineColor = "#1A1A1A"
+			},
+			["Matrix"] = {
+				FontColor = "#00FF00",
+				MainColor = "#0A0A0A",
+				Accent = "#00CC66",
+				BackgroundColor = "#000000",
+				OutlineColor = "#0F0F0F"
+			},
+			["Old Terminal"] = {
+				FontColor = "#00DD00",
+				MainColor = "#111111",
+				Accent = "#00AA00",
+				BackgroundColor = "#000000",
+				OutlineColor = "#2F2F2F"
+			},
+			["Midnight Retro"] = {
+				FontColor = "#FF9EFF",
+				MainColor = "#0F0F1F",
+				Accent = "#9D00FF",
+				BackgroundColor = "#0A0A1A",
+				OutlineColor = "#1C1C2C"
+			},
+			["Neo Noir"] = {
+				FontColor = "#FF3366",
+				MainColor = "#1A1A1A",
+				Accent = "#C50052",
+				BackgroundColor = "#121212",
+				OutlineColor = "#2A2A2A"
+			},
+			["Dark Cherry"] = {
+				FontColor = "#FFE6F0",
+				MainColor = "#2B0B0B",
+				Accent = "#A30000",
+				BackgroundColor = "#1A0000",
+				OutlineColor = "#3B1C1C"
+			},
+			["Vintage Code"] = {
+				FontColor = "#F4ECD8",
+				MainColor = "#1B1B1B",
+				Accent = "#CC5500",
+				BackgroundColor = "#141414",
+				OutlineColor = "#333333"
+			},
+			["Oblivion"] = {
+				FontColor = "#E0E0E0",
+				MainColor = "#202020",
+				Accent = "#F92672",
+				BackgroundColor = "#121212",
+				OutlineColor = "#2E2E2E"
+			},
+			["Nocturne"] = {
+				FontColor = "#DADADA",
+				MainColor = "#121217",
+				Accent = "#A3D2FF",
+				BackgroundColor = "#0C0C10",
+				OutlineColor = "#1A1A1F"
+			},
+			["Zerox"] = {
+				FontColor = "#FFFFFF",
+				MainColor = "#181818",
+				Accent = "#AA00FF",
+				BackgroundColor = "#0F0F0F",
+				OutlineColor = "#2C2C2C"
+			},
+			["Void"] = {
+				FontColor = "#DDDDDD",
+				MainColor = "#0A0A0A",
+				Accent = "#6600CC",
+				BackgroundColor = "#000000",
+				OutlineColor = "#1A1A1A"
+			},
+			["Carbon"] = {
+				FontColor = "#E0E0E0",
+				MainColor = "#2A2A2A",
+				Accent = "#999999",
+				BackgroundColor = "#1A1A1A",
+				OutlineColor = "#383838"
+			},
+			["Black Ice"] = {
+				FontColor = "#CFCFCF",
+				MainColor = "#0E0E10",
+				Accent = "#34BFFF",
+				BackgroundColor = "#08080A",
+				OutlineColor = "#1C1C1F"
+			},
+			["Terminal Wave"] = {
+				FontColor = "#8AFFEF",
+				MainColor = "#14191F",
+				Accent = "#F92672",
+				BackgroundColor = "#0B0F14",
+				OutlineColor = "#1E252E"
+			}
+		}
 
 				local selectedTheme = themes[v]
 				if selectedTheme then
