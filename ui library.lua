@@ -816,7 +816,7 @@ function Library:LoadConfigTab(Window)
 			Flag = "UI/Presets",
 			Options = {
 				"Tokyo Night",
-				"Kanagawa",						
+				"Kanagawa",
 				"Quartz",
 				"BBot",
 				"Fatality",
@@ -854,7 +854,23 @@ function Library:LoadConfigTab(Window)
 				"PaperColor Dark",
 				"Edge",
 				"One Dark",
-				"Tokyo Dark"
+				"Tokyo Dark",
+				"Phantom",
+				"Lavender Fog",
+				"Neon Abyss",
+				"Rust",
+				"Industrial",
+				"Bubblegum",
+				"Matrix",
+				"Frostbyte",
+				"Cream Soda",
+				"Solarized Light",
+				"Pastel Dream",
+				"Cobalt Blue",
+				"Desert",
+				"Firewatch",
+				"Charcoal",
+				"Taffy"
 			},
 			State = "Tokyo Night",
 			Callback = function(v)
@@ -1138,6 +1154,118 @@ function Library:LoadConfigTab(Window)
 						Accent = "#9aa5ce",
 						BackgroundColor = "#0d0d15",
 						OutlineColor = "#000000"
+					}
+					Phantom = {
+						FontColor = "#d1cfe2",
+						MainColor = "#1b1b2f",
+						Accent = "#7261a3",
+						BackgroundColor = "#0f0f1f",
+						OutlineColor = "#000000"
+					},
+					["Lavender Fog"] = {
+						FontColor = "#f5e9ff",
+						MainColor = "#3d2c41",
+						Accent = "#a67bc3",
+						BackgroundColor = "#2c1e3e",
+						OutlineColor = "#000000"
+					},
+					["Neon Abyss"] = {
+						FontColor = "#ffffff",
+						MainColor = "#0d0d0d",
+						Accent = "#ff00ff",
+						BackgroundColor = "#1a0033",
+						OutlineColor = "#3f006f"
+					},
+					Rust = {
+						FontColor = "#fcefe3",
+						MainColor = "#3b1f0f",
+						Accent = "#b85c38",
+						BackgroundColor = "#2a1206",
+						OutlineColor = "#1c0c04"
+					},
+					Industrial = {
+						FontColor = "#e0e0e0",
+						MainColor = "#3c3c3c",
+						Accent = "#999999",
+						BackgroundColor = "#1f1f1f",
+						OutlineColor = "#2a2a2a"
+					},
+					Bubblegum = {
+						FontColor = "#ffffff",
+						MainColor = "#ff6fa3",
+						Accent = "#ffc1e3",
+						BackgroundColor = "#ff4c91",
+						OutlineColor = "#cc2f6d"
+					},
+					Matrix = {
+						FontColor = "#00ff00",
+						MainColor = "#000000",
+						Accent = "#007700",
+						BackgroundColor = "#010101",
+						OutlineColor = "#003300"
+					},
+					Frostbyte = {
+						FontColor = "#e0f7ff",
+						MainColor = "#0c2d3a",
+						Accent = "#74d9ff",
+						BackgroundColor = "#051a24",
+						OutlineColor = "#000000"
+					},
+					["Cream Soda"] = {
+						FontColor = "#2c2c2c",
+						MainColor = "#fff5e1",
+						Accent = "#f7c59f",
+						BackgroundColor = "#ffe8cc",
+						OutlineColor = "#f4d3b2"
+					},
+					["Solarized Light"] = {
+						FontColor = "#586e75",
+						MainColor = "#fdf6e3",
+						Accent = "#268bd2",
+						BackgroundColor = "#eee8d5",
+						OutlineColor = "#93a1a1"
+					},
+					["Pastel Dream"] = {
+						FontColor = "#4a4a4a",
+						MainColor = "#ffcad4",
+						Accent = "#b5ead7",
+						BackgroundColor = "#f3f3f3",
+						OutlineColor = "#e5e5e5"
+					},
+					["Cobalt Blue"] = {
+						FontColor = "#ffffff",
+						MainColor = "#002366",
+						Accent = "#0059b3",
+						BackgroundColor = "#001a33",
+						OutlineColor = "#000000"
+					},
+					Desert = {
+						FontColor = "#3b2f2f",
+						MainColor = "#c19a6b",
+						Accent = "#d9a066",
+						BackgroundColor = "#a67c52",
+						OutlineColor = "#5a3e2b"
+					},
+					Firewatch = {
+						FontColor = "#ffffff",
+						MainColor = "#2c0e3a",
+						Accent = "#ff6e40",
+						BackgroundColor = "#1a0623",
+						OutlineColor = "#000000"
+					},
+					Charcoal = {
+						FontColor = "#cccccc",
+						MainColor = "#2b2b2b",
+						Accent = "#444444",
+						BackgroundColor = "#1a1a1a",
+						OutlineColor = "#000000"
+					},
+					Taffy = {
+						FontColor = "#fff0f5",
+						MainColor = "#ffaec9",
+						Accent = "#ff69b4",
+						BackgroundColor = "#ffc0cb",
+						OutlineColor = "#d36ba6"
 					}
 				}
 
