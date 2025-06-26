@@ -766,7 +766,8 @@ end
 --
 function Library:LoadConfigTab(Window)
 	local Config = Window:Page({
-		Name = "Settings"
+		Name = "Settings",
+		LayoutOrder = 9999
 	})
 	do
 		local Menu = Config:Section({
@@ -1954,7 +1955,7 @@ do
 			Elements = {},
 		}
 		--
-		local TabButton = Library:Create('TextButton', {
+		local tableidkfreakthiscoding = {
 			Parent = Page.Window.Elements.TabHolder,
 			Size = UDim2.new(0.25, 0, 1, 0),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1968,7 +1969,11 @@ do
 			TextSize = Library.FontSize,
 			TextStrokeTransparency = 0,
 			LineHeight = 1.1,
-		})
+		}
+		if Properties.LayoutOrder then
+			tableidkfreakthiscoding[LayoutOrder] = Properties.LayoutOrder
+		end
+		local TabButton = Library:Create('TextButton', tableidkfreakthiscoding)
 		local TabAccent = Library:Create('Frame', {
 			Parent = TabButton,
 			Size = UDim2.new(1, 0, 0, 2),
