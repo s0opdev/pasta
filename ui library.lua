@@ -17,6 +17,7 @@ local Library = {
 	RegistryMap = {};
 	Toggles = {};
 	ScreenGui = nil;
+	IsLoaded = false;
 	Keys = {
 		[Enum.KeyCode.LeftShift] = "LShift",
 		[Enum.KeyCode.RightShift] = "RShift",
@@ -762,709 +763,6 @@ function Library:KeybindList()
 		return KeyValue
 	end
 	return KeyList
-end
---
-function Library:LoadConfigTab(Window)
-	local Config = Window:Page({
-		Name = "Settings",
-		LastPage = true
-	})
-	do
-		local Menu = Config:Section({
-			Name = "Menu"
-		})
-		local PresetThemes = Config:Section({
-			Name = "Preset Themes"
-		})
-		local Themes = Config:Section({
-			Name = "Themes Configuration"
-		})
-		local Cfgs = Config:Section({
-			Name = "Configs",
-			Side = "Right"
-		})
-		local CurrentList = {}
-		local CFGList, loadedcfgshit, autoloadlabel, randomfunc, maincolor, backgroundcolor, outlinecolor, fontcolor, accentcolor
-		local function UpdateConfigList()
-			local List = {}
-			local SelectedConfig = Library.Flags["SettingConfigurationList"]
-			for _, file in ipairs(listfiles(ConfigFolder .. "/configs")) do
-				local FileName = file:gsub("\\", "/")
-				FileName = FileName:match("([^/]+)$")
-				List[#List + 1] = FileName
-			end
-			
-			local IsNew = #List ~= #CurrentList
-			if not IsNew then
-				for idx, file in ipairs(List) do
-					if file ~= CurrentList[idx] then
-						IsNew = true
-						break
-					end
-				end
-			end
-			if IsNew then
-				CurrentList = List
-				CFGList:Refresh(CurrentList)
-			end
-			if SelectedConfig then
-				randomfunc:set("")
-				CFGList:Set(SelectedConfig)
-			end
-		end
-PresetThemes:Dropdown({
-	Name = "Presets",
-	Flag = "UI/Presets",
-	Options = {
-		"Tokyo Night",
-		"Kanagawa",						
-		"Quartz",
-		"BBot",
-		"Fatality",
-		"Jester",
-		"Mint",
-		"Ubuntu",
-		"Abyss",
-		"Neverlose",
-		"Aimware",
-		"Youtube",
-		"Gamesense",
-		"Onetap",
-		"Entropy",
-		"Interwebz",
-		"Dracula",
-		"Spotify",
-		"Sublime",
-		"Vape",
-		"Neko",
-		"Corn",
-		"Minecraft",
-		"Nord",
-		"Monokai",
-		"Cyberpunk",
-		"Solarized Dark",
-		"Gruvbox",
-		"Night Owl",
-		"Arc Dark",
-		"Catppuccin",
-		"Tomorrow Night",
-		"Molokai",
-		"Material Palenight",
-		"Oceanic Next",
-		"Spacegray",
-		"PaperColor Dark",
-		"Edge",
-		"One Dark",
-		"Tokyo Dark",
-		"DOS",
-		"CRT Green",
-		"Matrix",
-		"Old Terminal",
-		"Midnight Retro",
-		"Neo Noir",
-		"Dark Cherry",
-		"Vintage Code",
-		"Oblivion",
-		"Nocturne",
-		"Zerox",
-		"Void",
-		"Carbon",
-		"Black Ice",
-		"Terminal Wave"
-	},
-	State = "Tokyo Night",
-	Callback = function(v)
-		local themes = {
-					['Tokyo Night'] = {
-			                        FontColor = "#FFFFFF",
-			                        MainColor = "#191925",
-			                        Accent = "#6759B3",
-			                        BackgroundColor = "#16161F",
-			                        OutlineColor = "#323232"
-					},
-					Kanagawa = {
-						FontColor = "#dcd7ba",
-						MainColor = "#1f1f28",
-						Accent = "#957fb8",
-						BackgroundColor = "#1a1a22",
-						OutlineColor = "#000000"
-					},						
-					Quartz = {
-						FontColor = "#ffffff",
-						MainColor = "#2e2e2e",
-						Accent = "#9147ff",
-						BackgroundColor = "#1c1c1c",
-						OutlineColor = "#000000"
-					},
-					BBot = {
-						FontColor = "#ffffff",
-						MainColor = "#2d2d2d",
-						Accent = "#3a9bfd",
-						BackgroundColor = "#1a1a1a",
-						OutlineColor = "#000000"
-					},
-					Fatality = {
-						FontColor = "#ffffff",
-						MainColor = "#191919",
-						Accent = "#e61c1c",
-						BackgroundColor = "#0f0f0f",
-						OutlineColor = "#000000"
-					},
-					Jester = {
-						FontColor = "#ffffff",
-						MainColor = "#292929",
-						Accent = "#ff00ff",
-						BackgroundColor = "#121212",
-						OutlineColor = "#000000"
-					},
-					Mint = {
-						FontColor = "#ffffff",
-						MainColor = "#2a2a2a",
-						Accent = "#78ffd6",
-						BackgroundColor = "#1f1f1f",
-						OutlineColor = "#000000"
-					},
-					Ubuntu = {
-						FontColor = "#eeeeee",
-						MainColor = "#2c001e",
-						Accent = "#e95420",
-						BackgroundColor = "#300a24",
-						OutlineColor = "#000000"
-					},
-					Abyss = {
-						FontColor = "#dcdcdc",
-						MainColor = "#1c1c1c",
-						Accent = "#5e81ac",
-						BackgroundColor = "#101010",
-						OutlineColor = "#000000"
-					},
-					Neverlose = {
-						FontColor = "#f2f2f2",
-						MainColor = "#1e1e1e",
-						Accent = "#5fa8d3",
-						BackgroundColor = "#121212",
-						OutlineColor = "#000000"
-					},
-					Aimware = {
-						FontColor = "#ffffff",
-						MainColor = "#2d2d2d",
-						Accent = "#e62e2e",
-						BackgroundColor = "#1a1a1a",
-						OutlineColor = "#000000"
-					},
-					Youtube = {
-						FontColor = "#ffffff",
-						MainColor = "#282828",
-						Accent = "#ff0000",
-						BackgroundColor = "#121212",
-						OutlineColor = "#000000"
-					},
-					Gamesense = {
-						FontColor = "#b4b4b4",
-						MainColor = "#1a1a1a",
-						Accent = "#5eb95e",
-						BackgroundColor = "#101010",
-						OutlineColor = "#000000"
-					},
-					Onetap = {
-						FontColor = "#ffffff",
-						MainColor = "#232323",
-						Accent = "#2e8bff",
-						BackgroundColor = "#141414",
-						OutlineColor = "#000000"
-					},
-					Entropy = {
-						FontColor = "#e0e0e0",
-						MainColor = "#2a2a2a",
-						Accent = "#b16286",
-						BackgroundColor = "#1a1a1a",
-						OutlineColor = "#000000"
-					},
-					Interwebz = {
-						FontColor = "#ffffff",
-						MainColor = "#292929",
-						Accent = "#e600ff",
-						BackgroundColor = "#121212",
-						OutlineColor = "#000000"
-					},
-					Dracula = {
-						FontColor = "#f8f8f2",
-						MainColor = "#282a36",
-						Accent = "#bd93f9",
-						BackgroundColor = "#1e1f29",
-						OutlineColor = "#000000"
-					},
-					Spotify = {
-						FontColor = "#ffffff",
-						MainColor = "#191414",
-						Accent = "#1db954",
-						BackgroundColor = "#121212",
-						OutlineColor = "#000000"
-					},
-					Sublime = {
-						FontColor = "#f8f8f2",
-						MainColor = "#2b2b2b",
-						Accent = "#66d9ef",
-						BackgroundColor = "#1e1e1e",
-						OutlineColor = "#000000"
-					},
-					Vape = {
-						FontColor = "#ffffff",
-						MainColor = "#1f1f1f",
-						Accent = "#8c52ff",
-						BackgroundColor = "#121212",
-						OutlineColor = "#000000"
-					},
-					Neko = {
-						FontColor = "#ffffff",
-						MainColor = "#2d2a55",
-						Accent = "#ff77a8",
-						BackgroundColor = "#1b1b3a",
-						OutlineColor = "#000000"
-					},
-					Corn = {
-						FontColor = "#DCDCDC",
-						MainColor = "#252525",
-						Accent = "#FF9000",
-						BackgroundColor = "#191919",
-						OutlineColor = "#000000"
-					},
-					Minecraft = {
-						FontColor = "#FFFFFF",
-						MainColor = "#333333",
-						Accent = "#27CE40",
-						BackgroundColor = "#262626",
-						OutlineColor = "#000000"
-					},
-					Nord = {
-						FontColor = "#D8DEE9",
-						MainColor = "#2E3440",
-						Accent = "#88C0D0",
-						BackgroundColor = "#3B4252",
-						OutlineColor = "#4C566A"
-					},
-					Monokai = {
-						FontColor = "#F8F8F2",
-						MainColor = "#272822",
-						Accent = "#FD971F",
-						BackgroundColor = "#1E1F1C",
-						OutlineColor = "#75715E"
-					},
-					Cyberpunk = {
-						FontColor = "#FF66C4",
-						MainColor = "#0D0221",
-						Accent = "#00FFFF",
-						BackgroundColor = "#1A0033",
-						OutlineColor = "#4A0072"
-					},
-					["Solarized Dark"] = {
-						FontColor = "#EEE8D5",
-						MainColor = "#002B36",
-						Accent = "#268BD2",
-						BackgroundColor = "#073642",
-						OutlineColor = "#586E75"
-					},
-					Gruvbox = {
-						FontColor = "#EBDBB2",
-						MainColor = "#282828",
-						Accent = "#FE8019",
-						BackgroundColor = "#1D2021",
-						OutlineColor = "#3C3836"
-					},
-					["Night Owl"] = {
-						FontColor = "#d6deeb",
-						MainColor = "#011627",
-						Accent = "#82AAFF",
-						BackgroundColor = "#0f111a",
-						OutlineColor = "#000000"
-					},
-					["Arc Dark"] = {
-						FontColor = "#ffffff",
-						MainColor = "#383c4a",
-						Accent = "#5294e2",
-						BackgroundColor = "#2f343f",
-						OutlineColor = "#000000"
-					},
-					Catppuccin = {
-						FontColor = "#cdd6f4",
-						MainColor = "#1e1e2e",
-						Accent = "#89b4fa",
-						BackgroundColor = "#181825",
-						OutlineColor = "#000000"
-					},
-					["Tomorrow Night"] = {
-						FontColor = "#cccccc",
-						MainColor = "#1d1f21",
-						Accent = "#81a2be",
-						BackgroundColor = "#282a2e",
-						OutlineColor = "#000000"
-					},
-					Molokai = {
-						FontColor = "#f8f8f2",
-						MainColor = "#1b1d1e",
-						Accent = "#fd971f",
-						BackgroundColor = "#272822",
-						OutlineColor = "#000000"
-					},
-					["Material Palenight"] = {
-						FontColor = "#c3e88d",
-						MainColor = "#292d3e",
-						Accent = "#82aaff",
-						BackgroundColor = "#1e212e",
-						OutlineColor = "#000000"
-					},
-					["Oceanic Next"] = {
-						FontColor = "#d8dee9",
-						MainColor = "#1b2b34",
-						Accent = "#6699cc",
-						BackgroundColor = "#0f1c26",
-						OutlineColor = "#000000"
-					},
-					Spacegray = {
-						FontColor = "#ffffff",
-						MainColor = "#20242b",
-						Accent = "#b3b3b3",
-						BackgroundColor = "#2c2f36",
-						OutlineColor = "#000000"
-					},
-					["PaperColor Dark"] = {
-						FontColor = "#eeeeee",
-						MainColor = "#1c1c1c",
-						Accent = "#af5f5f",
-						BackgroundColor = "#121212",
-						OutlineColor = "#000000"
-					},
-					Edge = {
-						FontColor = "#ffffff",
-						MainColor = "#262a33",
-						Accent = "#528bff",
-						BackgroundColor = "#1c1f26",
-						OutlineColor = "#000000"
-					},
-					["One Dark"] = {
-						FontColor = "#abb2bf",
-						MainColor = "#282c34",
-						Accent = "#61afef",
-						BackgroundColor = "#21252b",
-						OutlineColor = "#000000"
-					},
-					["Tokyo Dark"] = {
-						FontColor = "#c0caf5",
-						MainColor = "#16161e",
-						Accent = "#9aa5ce",
-						BackgroundColor = "#0d0d15",
-						OutlineColor = "#000000"
-					},
-					["DOS"] = {
-						FontColor = "#00FF00",
-						MainColor = "#000000",
-						Accent = "#00AA00",
-						BackgroundColor = "#000000",
-						OutlineColor = "#222222"
-					},
-					["CRT Green"] = {
-						FontColor = "#7FFF00",
-						MainColor = "#101010",
-						Accent = "#00FF00",
-						BackgroundColor = "#050505",
-						OutlineColor = "#1A1A1A"
-					},
-					["Matrix"] = {
-						FontColor = "#00FF00",
-						MainColor = "#0A0A0A",
-						Accent = "#00CC66",
-						BackgroundColor = "#000000",
-						OutlineColor = "#0F0F0F"
-					},
-					["Old Terminal"] = {
-						FontColor = "#00DD00",
-						MainColor = "#111111",
-						Accent = "#00AA00",
-						BackgroundColor = "#000000",
-						OutlineColor = "#2F2F2F"
-					},
-					["Midnight Retro"] = {
-						FontColor = "#FF9EFF",
-						MainColor = "#0F0F1F",
-						Accent = "#9D00FF",
-						BackgroundColor = "#0A0A1A",
-						OutlineColor = "#1C1C2C"
-					},
-					["Neo Noir"] = {
-						FontColor = "#FF3366",
-						MainColor = "#1A1A1A",
-						Accent = "#C50052",
-						BackgroundColor = "#121212",
-						OutlineColor = "#2A2A2A"
-					},
-					["Dark Cherry"] = {
-						FontColor = "#FFE6F0",
-						MainColor = "#2B0B0B",
-						Accent = "#A30000",
-						BackgroundColor = "#1A0000",
-						OutlineColor = "#3B1C1C"
-					},
-					["Vintage Code"] = {
-						FontColor = "#F4ECD8",
-						MainColor = "#1B1B1B",
-						Accent = "#CC5500",
-						BackgroundColor = "#141414",
-						OutlineColor = "#333333"
-					},
-					["Oblivion"] = {
-						FontColor = "#E0E0E0",
-						MainColor = "#202020",
-						Accent = "#F92672",
-						BackgroundColor = "#121212",
-						OutlineColor = "#2E2E2E"
-					},
-					["Nocturne"] = {
-						FontColor = "#DADADA",
-						MainColor = "#121217",
-						Accent = "#A3D2FF",
-						BackgroundColor = "#0C0C10",
-						OutlineColor = "#1A1A1F"
-					},
-					["Zerox"] = {
-						FontColor = "#FFFFFF",
-						MainColor = "#181818",
-						Accent = "#AA00FF",
-						BackgroundColor = "#0F0F0F",
-						OutlineColor = "#2C2C2C"
-					},
-					["Void"] = {
-						FontColor = "#DDDDDD",
-						MainColor = "#0A0A0A",
-						Accent = "#6600CC",
-						BackgroundColor = "#000000",
-						OutlineColor = "#1A1A1A"
-					},
-					["Carbon"] = {
-						FontColor = "#E0E0E0",
-						MainColor = "#2A2A2A",
-						Accent = "#999999",
-						BackgroundColor = "#1A1A1A",
-						OutlineColor = "#383838"
-					},
-					["Black Ice"] = {
-						FontColor = "#CFCFCF",
-						MainColor = "#0E0E10",
-						Accent = "#34BFFF",
-						BackgroundColor = "#08080A",
-						OutlineColor = "#1C1C1F"
-					},
-					["Terminal Wave"] = {
-						FontColor = "#8AFFEF",
-						MainColor = "#14191F",
-						Accent = "#F92672",
-						BackgroundColor = "#0B0F14",
-						OutlineColor = "#1E252E"
-					}
-				}
-
-				local selectedTheme = themes[v]
-				if selectedTheme then
-					for i, v in pairs(selectedTheme) do
-						Library[i] = Color3.fromHex(v)
-					end
-					Library.DarkerAccent = Library:GetDarkerColor(Library.Accent)
-					if fontcolor then
-						fontcolor:Set(Library.FontColor)
-					end
-					if maincolor then
-						maincolor:Set(Library.MainColor)
-					end
-					if accentcolor then
-						accentcolor:Set(Library.Accent)
-					end
-					if outlinecolor then
-						outlinecolor:Set(Library.OutlineColor)
-					end
-					if backgroundcolor then
-						backgroundcolor:Set(Library.BackgroundColor)
-					end
-					Library:ChangeAccent()
-				end
-			end
-		})
-		maincolor = Themes:Colorpicker({
-			Name = "Main Color",
-			flag = "UI/MainColor",
-			State = Library.MainColor,
-			Callback = function(v)
-				Library.MainColor = v
-				Library:ChangeAccent()
-			end
-		})
-		backgroundcolor = Themes:Colorpicker({
-			Name = "Background Color",
-			Flag = "UI/BackgroundColor",
-			State = Library.BackgroundColor,
-			Callback = function(v)
-				Library.BackgroundColor = v
-				Library:ChangeAccent()
-			end
-		})
-		accentcolor = Themes:Colorpicker({
-			Name = "Accent Color",
-			Flag = "UI/AccentColor",
-			State = Library.Accent,
-			Callback = function(v)
-				Library.Accent = v
-				Library.DarkerAccent = Library:GetDarkerColor(Library.Accent)
-				Library:ChangeAccent()
-			end
-		})
-		outlinecolor = Themes:Colorpicker({
-			Name = "Outline Color",
-			Flag = "UI/OutlineColor",
-			State = Library.OutlineColor,
-			Callback = function(v)
-				Library.OutlineColor = v
-				Library:ChangeAccent()
-			end
-		})
-		fontcolor = Themes:Colorpicker({
-			Name = "Font Color",
-			Flag = "UI/FontColor",
-			State = Library.FontColor,
-			Callback = function(v)
-				Library.FontColor = v
-				Library:ChangeAccent()
-			end
-		})
-		Menu:Keybind({
-			Name = "UI Toggle",
-			Flag = "MenuKey",
-			Default = Enum.KeyCode.End,
-			Mode = "Toggle",
-			Callback = Library.SetOpen
-		})
-		Menu:Toggle({
-			Name = "Keybind List",
-			Flag = "KeybindList",
-			Callback = function(v)
-				Library.KeyList:SetVisible(v)
-			end
-		})
-		Menu:Button({
-			Name = "Unload",
-			Callback = function()
-				Library:Unload()
-			end
-		})
-		randomfunc = Cfgs:Textbox({
-			Flag = "SettingsConfigurationName",
-			Name = "Config name"
-		})
-		Cfgs:Button({
-			Name = "Create",
-			Callback = function()
-				local ConfigName = Library.Flags["SettingsConfigurationName"]
-				if ConfigName and ConfigName ~= "" or not isfile(ConfigFolder .. "/configs/" .. ConfigName) then
-					writefile(ConfigFolder .. "/configs/" .. ConfigName, Library:GetConfig())
-					UpdateConfigList()
-					randomfunc:set("")
-					CFGList:Set(ConfigName)
-					Library:Notification("Config Created: " .. ConfigName, 3, nil, "Top")
-				end
-			end
-		})
-		CFGList = Cfgs:Dropdown({
-			Name = "Saved Configs",
-			Flag = "SettingConfigurationList",
-			Options = {}
-		})
-		if not isfolder(ConfigFolder) then
-			makefolder(ConfigFolder)
-		end
-		if not isfolder(ConfigFolder .. "/configs") then
-			makefolder(ConfigFolder .. "/configs")
-		end
-		Cfgs:Button({
-			Name = "Save",
-			Callback = function()
-				local SelectedConfig = Library.Flags["SettingConfigurationList"]
-				if SelectedConfig then
-					writefile(ConfigFolder .. "/configs/" .. SelectedConfig, Library:GetConfig())
-					Library:Notification("Config Saved: " .. SelectedConfig, 3, nil, "Top")
-				else
-					Library:Notification("No Config Selected!", 3, nil, "Top")
-				end
-			end
-		})
-		Cfgs:Button({
-			Name = "Load",
-			Callback = function()
-				local SelectedConfig = Library.Flags["SettingConfigurationList"]
-				if SelectedConfig then
-					Library:LoadConfig(readfile(ConfigFolder .. "/configs/" .. SelectedConfig))
-					CFGList:Set(SelectedConfig)
-					Library:Notification("Config Loaded: " .. SelectedConfig, 3, nil, "Top")
-				else
-					Library:Notification("No Config Selected!", 3, nil, "Top")
-				end
-			end
-		})
-		Cfgs:Button({
-			Name = "Set Auto Load",
-			Callback = function()
-				local SelectedConfig = Library.Flags["SettingConfigurationList"]
-				if SelectedConfig then
-					writefile(ConfigFolder .. "/autoload.txt", Library.Flags["SettingConfigurationList"])
-					Library:Notification("Config Auto Loaded: " .. Library.Flags["SettingConfigurationList"], 7, nil, "Top")
-					autoloadlabel:SetText("Current Auto Load: " .. Library.Flags["SettingConfigurationList"])
-					loadedcfgshit = Library.Flags["SettingConfigurationList"]
-				else
-					Library:Notification("No Config Selected!", 3, nil, "Top")
-				end
-			end
-		})
-		Cfgs:Button({
-			Name = "Delete",
-			Callback = function()
-				local SelectedConfig = Library.Flags["SettingConfigurationList"]
-				if SelectedConfig then
-					delfile(ConfigFolder .. "/configs/" .. SelectedConfig)
-					Library:Notification("Config Deleted: " .. SelectedConfig, 3, nil, "Top")
-					UpdateConfigList()
-					CFGList:Set()
-					if SelectedConfig == loadedcfgshit then
-						autoloadlabel:SetText("Current Auto Load: None")
-						delfile(ConfigFolder .. "/autoload.txt")
-					end
-				else
-					Library:Notification("No Config Selected!", 3, nil, "Top")
-				end
-			end
-		})
-		Cfgs:Button({
-			Name = "Refresh",
-			Callback = function()
-				UpdateConfigList()
-				Library:Notification("Config List Refreshed", 3, nil, "Top")
-			end
-		})
-		UpdateConfigList()
-		autoloadlabel = Cfgs:Label({
-			Name = "Current Auto Load:",
-			Centered = true
-		})
-		Library:SetOpen()
-		if isfile(ConfigFolder .. "/autoload.txt") then
-			loadedcfgshit = readfile(ConfigFolder .. "/autoload.txt")
-			local configFile = ConfigFolder .. "/configs/" .. loadedcfgshit
-			if isfile(configFile) then
-				autoloadlabel:SetText("Current Auto Load: " .. loadedcfgshit)
-				Library:LoadConfig(readfile(configFile))
-				CFGList:Set(loadedcfgshit)
-			else
-				autoloadlabel:SetText("Current Auto Load: None")
-			end
-		else
-			autoloadlabel:SetText("Current Auto Load: None")
-		end
-	end
 end
 --
 function Library:NewPicker(default, parent, count, flag, callback)
@@ -3989,5 +3287,710 @@ do
 		end
 		return Label
 	end
+	task.spawn(function()
+		repeat task.wait() until Library.IsLoaded
+		local Config = Library.Window:Page({
+			Name = "Settings",
+			LastPage = true
+		})
+		do
+			local Menu = Config:Section({
+				Name = "Menu"
+			})
+			local PresetThemes = Config:Section({
+				Name = "Preset Themes"
+			})
+			local Themes = Config:Section({
+				Name = "Themes Configuration"
+			})
+			local Cfgs = Config:Section({
+				Name = "Configs",
+				Side = "Right"
+			})
+			local CurrentList = {}
+			local CFGList, loadedcfgshit, autoloadlabel, randomfunc, maincolor, backgroundcolor, outlinecolor, fontcolor, accentcolor
+			local function UpdateConfigList()
+				local List = {}
+				local SelectedConfig = Library.Flags["SettingConfigurationList"]
+				for _, file in ipairs(listfiles(ConfigFolder .. "/configs")) do
+					local FileName = file:gsub("\\", "/")
+					FileName = FileName:match("([^/]+)$")
+					List[#List + 1] = FileName
+				end
+				
+				local IsNew = #List ~= #CurrentList
+				if not IsNew then
+					for idx, file in ipairs(List) do
+						if file ~= CurrentList[idx] then
+							IsNew = true
+							break
+						end
+					end
+				end
+				if IsNew then
+					CurrentList = List
+					CFGList:Refresh(CurrentList)
+				end
+				if SelectedConfig then
+					randomfunc:set("")
+					CFGList:Set(SelectedConfig)
+				end
+			end
+	PresetThemes:Dropdown({
+		Name = "Presets",
+		Flag = "UI/Presets",
+		Options = {
+			"Tokyo Night",
+			"Kanagawa",						
+			"Quartz",
+			"BBot",
+			"Fatality",
+			"Jester",
+			"Mint",
+			"Ubuntu",
+			"Abyss",
+			"Neverlose",
+			"Aimware",
+			"Youtube",
+			"Gamesense",
+			"Onetap",
+			"Entropy",
+			"Interwebz",
+			"Dracula",
+			"Spotify",
+			"Sublime",
+			"Vape",
+			"Neko",
+			"Corn",
+			"Minecraft",
+			"Nord",
+			"Monokai",
+			"Cyberpunk",
+			"Solarized Dark",
+			"Gruvbox",
+			"Night Owl",
+			"Arc Dark",
+			"Catppuccin",
+			"Tomorrow Night",
+			"Molokai",
+			"Material Palenight",
+			"Oceanic Next",
+			"Spacegray",
+			"PaperColor Dark",
+			"Edge",
+			"One Dark",
+			"Tokyo Dark",
+			"DOS",
+			"CRT Green",
+			"Matrix",
+			"Old Terminal",
+			"Midnight Retro",
+			"Neo Noir",
+			"Dark Cherry",
+			"Vintage Code",
+			"Oblivion",
+			"Nocturne",
+			"Zerox",
+			"Void",
+			"Carbon",
+			"Black Ice",
+			"Terminal Wave"
+		},
+		State = "Tokyo Night",
+		Callback = function(v)
+			local themes = {
+						['Tokyo Night'] = {
+										FontColor = "#FFFFFF",
+										MainColor = "#191925",
+										Accent = "#6759B3",
+										BackgroundColor = "#16161F",
+										OutlineColor = "#323232"
+						},
+						Kanagawa = {
+							FontColor = "#dcd7ba",
+							MainColor = "#1f1f28",
+							Accent = "#957fb8",
+							BackgroundColor = "#1a1a22",
+							OutlineColor = "#000000"
+						},						
+						Quartz = {
+							FontColor = "#ffffff",
+							MainColor = "#2e2e2e",
+							Accent = "#9147ff",
+							BackgroundColor = "#1c1c1c",
+							OutlineColor = "#000000"
+						},
+						BBot = {
+							FontColor = "#ffffff",
+							MainColor = "#2d2d2d",
+							Accent = "#3a9bfd",
+							BackgroundColor = "#1a1a1a",
+							OutlineColor = "#000000"
+						},
+						Fatality = {
+							FontColor = "#ffffff",
+							MainColor = "#191919",
+							Accent = "#e61c1c",
+							BackgroundColor = "#0f0f0f",
+							OutlineColor = "#000000"
+						},
+						Jester = {
+							FontColor = "#ffffff",
+							MainColor = "#292929",
+							Accent = "#ff00ff",
+							BackgroundColor = "#121212",
+							OutlineColor = "#000000"
+						},
+						Mint = {
+							FontColor = "#ffffff",
+							MainColor = "#2a2a2a",
+							Accent = "#78ffd6",
+							BackgroundColor = "#1f1f1f",
+							OutlineColor = "#000000"
+						},
+						Ubuntu = {
+							FontColor = "#eeeeee",
+							MainColor = "#2c001e",
+							Accent = "#e95420",
+							BackgroundColor = "#300a24",
+							OutlineColor = "#000000"
+						},
+						Abyss = {
+							FontColor = "#dcdcdc",
+							MainColor = "#1c1c1c",
+							Accent = "#5e81ac",
+							BackgroundColor = "#101010",
+							OutlineColor = "#000000"
+						},
+						Neverlose = {
+							FontColor = "#f2f2f2",
+							MainColor = "#1e1e1e",
+							Accent = "#5fa8d3",
+							BackgroundColor = "#121212",
+							OutlineColor = "#000000"
+						},
+						Aimware = {
+							FontColor = "#ffffff",
+							MainColor = "#2d2d2d",
+							Accent = "#e62e2e",
+							BackgroundColor = "#1a1a1a",
+							OutlineColor = "#000000"
+						},
+						Youtube = {
+							FontColor = "#ffffff",
+							MainColor = "#282828",
+							Accent = "#ff0000",
+							BackgroundColor = "#121212",
+							OutlineColor = "#000000"
+						},
+						Gamesense = {
+							FontColor = "#b4b4b4",
+							MainColor = "#1a1a1a",
+							Accent = "#5eb95e",
+							BackgroundColor = "#101010",
+							OutlineColor = "#000000"
+						},
+						Onetap = {
+							FontColor = "#ffffff",
+							MainColor = "#232323",
+							Accent = "#2e8bff",
+							BackgroundColor = "#141414",
+							OutlineColor = "#000000"
+						},
+						Entropy = {
+							FontColor = "#e0e0e0",
+							MainColor = "#2a2a2a",
+							Accent = "#b16286",
+							BackgroundColor = "#1a1a1a",
+							OutlineColor = "#000000"
+						},
+						Interwebz = {
+							FontColor = "#ffffff",
+							MainColor = "#292929",
+							Accent = "#e600ff",
+							BackgroundColor = "#121212",
+							OutlineColor = "#000000"
+						},
+						Dracula = {
+							FontColor = "#f8f8f2",
+							MainColor = "#282a36",
+							Accent = "#bd93f9",
+							BackgroundColor = "#1e1f29",
+							OutlineColor = "#000000"
+						},
+						Spotify = {
+							FontColor = "#ffffff",
+							MainColor = "#191414",
+							Accent = "#1db954",
+							BackgroundColor = "#121212",
+							OutlineColor = "#000000"
+						},
+						Sublime = {
+							FontColor = "#f8f8f2",
+							MainColor = "#2b2b2b",
+							Accent = "#66d9ef",
+							BackgroundColor = "#1e1e1e",
+							OutlineColor = "#000000"
+						},
+						Vape = {
+							FontColor = "#ffffff",
+							MainColor = "#1f1f1f",
+							Accent = "#8c52ff",
+							BackgroundColor = "#121212",
+							OutlineColor = "#000000"
+						},
+						Neko = {
+							FontColor = "#ffffff",
+							MainColor = "#2d2a55",
+							Accent = "#ff77a8",
+							BackgroundColor = "#1b1b3a",
+							OutlineColor = "#000000"
+						},
+						Corn = {
+							FontColor = "#DCDCDC",
+							MainColor = "#252525",
+							Accent = "#FF9000",
+							BackgroundColor = "#191919",
+							OutlineColor = "#000000"
+						},
+						Minecraft = {
+							FontColor = "#FFFFFF",
+							MainColor = "#333333",
+							Accent = "#27CE40",
+							BackgroundColor = "#262626",
+							OutlineColor = "#000000"
+						},
+						Nord = {
+							FontColor = "#D8DEE9",
+							MainColor = "#2E3440",
+							Accent = "#88C0D0",
+							BackgroundColor = "#3B4252",
+							OutlineColor = "#4C566A"
+						},
+						Monokai = {
+							FontColor = "#F8F8F2",
+							MainColor = "#272822",
+							Accent = "#FD971F",
+							BackgroundColor = "#1E1F1C",
+							OutlineColor = "#75715E"
+						},
+						Cyberpunk = {
+							FontColor = "#FF66C4",
+							MainColor = "#0D0221",
+							Accent = "#00FFFF",
+							BackgroundColor = "#1A0033",
+							OutlineColor = "#4A0072"
+						},
+						["Solarized Dark"] = {
+							FontColor = "#EEE8D5",
+							MainColor = "#002B36",
+							Accent = "#268BD2",
+							BackgroundColor = "#073642",
+							OutlineColor = "#586E75"
+						},
+						Gruvbox = {
+							FontColor = "#EBDBB2",
+							MainColor = "#282828",
+							Accent = "#FE8019",
+							BackgroundColor = "#1D2021",
+							OutlineColor = "#3C3836"
+						},
+						["Night Owl"] = {
+							FontColor = "#d6deeb",
+							MainColor = "#011627",
+							Accent = "#82AAFF",
+							BackgroundColor = "#0f111a",
+							OutlineColor = "#000000"
+						},
+						["Arc Dark"] = {
+							FontColor = "#ffffff",
+							MainColor = "#383c4a",
+							Accent = "#5294e2",
+							BackgroundColor = "#2f343f",
+							OutlineColor = "#000000"
+						},
+						Catppuccin = {
+							FontColor = "#cdd6f4",
+							MainColor = "#1e1e2e",
+							Accent = "#89b4fa",
+							BackgroundColor = "#181825",
+							OutlineColor = "#000000"
+						},
+						["Tomorrow Night"] = {
+							FontColor = "#cccccc",
+							MainColor = "#1d1f21",
+							Accent = "#81a2be",
+							BackgroundColor = "#282a2e",
+							OutlineColor = "#000000"
+						},
+						Molokai = {
+							FontColor = "#f8f8f2",
+							MainColor = "#1b1d1e",
+							Accent = "#fd971f",
+							BackgroundColor = "#272822",
+							OutlineColor = "#000000"
+						},
+						["Material Palenight"] = {
+							FontColor = "#c3e88d",
+							MainColor = "#292d3e",
+							Accent = "#82aaff",
+							BackgroundColor = "#1e212e",
+							OutlineColor = "#000000"
+						},
+						["Oceanic Next"] = {
+							FontColor = "#d8dee9",
+							MainColor = "#1b2b34",
+							Accent = "#6699cc",
+							BackgroundColor = "#0f1c26",
+							OutlineColor = "#000000"
+						},
+						Spacegray = {
+							FontColor = "#ffffff",
+							MainColor = "#20242b",
+							Accent = "#b3b3b3",
+							BackgroundColor = "#2c2f36",
+							OutlineColor = "#000000"
+						},
+						["PaperColor Dark"] = {
+							FontColor = "#eeeeee",
+							MainColor = "#1c1c1c",
+							Accent = "#af5f5f",
+							BackgroundColor = "#121212",
+							OutlineColor = "#000000"
+						},
+						Edge = {
+							FontColor = "#ffffff",
+							MainColor = "#262a33",
+							Accent = "#528bff",
+							BackgroundColor = "#1c1f26",
+							OutlineColor = "#000000"
+						},
+						["One Dark"] = {
+							FontColor = "#abb2bf",
+							MainColor = "#282c34",
+							Accent = "#61afef",
+							BackgroundColor = "#21252b",
+							OutlineColor = "#000000"
+						},
+						["Tokyo Dark"] = {
+							FontColor = "#c0caf5",
+							MainColor = "#16161e",
+							Accent = "#9aa5ce",
+							BackgroundColor = "#0d0d15",
+							OutlineColor = "#000000"
+						},
+						["DOS"] = {
+							FontColor = "#00FF00",
+							MainColor = "#000000",
+							Accent = "#00AA00",
+							BackgroundColor = "#000000",
+							OutlineColor = "#222222"
+						},
+						["CRT Green"] = {
+							FontColor = "#7FFF00",
+							MainColor = "#101010",
+							Accent = "#00FF00",
+							BackgroundColor = "#050505",
+							OutlineColor = "#1A1A1A"
+						},
+						["Matrix"] = {
+							FontColor = "#00FF00",
+							MainColor = "#0A0A0A",
+							Accent = "#00CC66",
+							BackgroundColor = "#000000",
+							OutlineColor = "#0F0F0F"
+						},
+						["Old Terminal"] = {
+							FontColor = "#00DD00",
+							MainColor = "#111111",
+							Accent = "#00AA00",
+							BackgroundColor = "#000000",
+							OutlineColor = "#2F2F2F"
+						},
+						["Midnight Retro"] = {
+							FontColor = "#FF9EFF",
+							MainColor = "#0F0F1F",
+							Accent = "#9D00FF",
+							BackgroundColor = "#0A0A1A",
+							OutlineColor = "#1C1C2C"
+						},
+						["Neo Noir"] = {
+							FontColor = "#FF3366",
+							MainColor = "#1A1A1A",
+							Accent = "#C50052",
+							BackgroundColor = "#121212",
+							OutlineColor = "#2A2A2A"
+						},
+						["Dark Cherry"] = {
+							FontColor = "#FFE6F0",
+							MainColor = "#2B0B0B",
+							Accent = "#A30000",
+							BackgroundColor = "#1A0000",
+							OutlineColor = "#3B1C1C"
+						},
+						["Vintage Code"] = {
+							FontColor = "#F4ECD8",
+							MainColor = "#1B1B1B",
+							Accent = "#CC5500",
+							BackgroundColor = "#141414",
+							OutlineColor = "#333333"
+						},
+						["Oblivion"] = {
+							FontColor = "#E0E0E0",
+							MainColor = "#202020",
+							Accent = "#F92672",
+							BackgroundColor = "#121212",
+							OutlineColor = "#2E2E2E"
+						},
+						["Nocturne"] = {
+							FontColor = "#DADADA",
+							MainColor = "#121217",
+							Accent = "#A3D2FF",
+							BackgroundColor = "#0C0C10",
+							OutlineColor = "#1A1A1F"
+						},
+						["Zerox"] = {
+							FontColor = "#FFFFFF",
+							MainColor = "#181818",
+							Accent = "#AA00FF",
+							BackgroundColor = "#0F0F0F",
+							OutlineColor = "#2C2C2C"
+						},
+						["Void"] = {
+							FontColor = "#DDDDDD",
+							MainColor = "#0A0A0A",
+							Accent = "#6600CC",
+							BackgroundColor = "#000000",
+							OutlineColor = "#1A1A1A"
+						},
+						["Carbon"] = {
+							FontColor = "#E0E0E0",
+							MainColor = "#2A2A2A",
+							Accent = "#999999",
+							BackgroundColor = "#1A1A1A",
+							OutlineColor = "#383838"
+						},
+						["Black Ice"] = {
+							FontColor = "#CFCFCF",
+							MainColor = "#0E0E10",
+							Accent = "#34BFFF",
+							BackgroundColor = "#08080A",
+							OutlineColor = "#1C1C1F"
+						},
+						["Terminal Wave"] = {
+							FontColor = "#8AFFEF",
+							MainColor = "#14191F",
+							Accent = "#F92672",
+							BackgroundColor = "#0B0F14",
+							OutlineColor = "#1E252E"
+						}
+					}
+
+					local selectedTheme = themes[v]
+					if selectedTheme then
+						for i, v in pairs(selectedTheme) do
+							Library[i] = Color3.fromHex(v)
+						end
+						Library.DarkerAccent = Library:GetDarkerColor(Library.Accent)
+						if fontcolor then
+							fontcolor:Set(Library.FontColor)
+						end
+						if maincolor then
+							maincolor:Set(Library.MainColor)
+						end
+						if accentcolor then
+							accentcolor:Set(Library.Accent)
+						end
+						if outlinecolor then
+							outlinecolor:Set(Library.OutlineColor)
+						end
+						if backgroundcolor then
+							backgroundcolor:Set(Library.BackgroundColor)
+						end
+						Library:ChangeAccent()
+					end
+				end
+			})
+			maincolor = Themes:Colorpicker({
+				Name = "Main Color",
+				flag = "UI/MainColor",
+				State = Library.MainColor,
+				Callback = function(v)
+					Library.MainColor = v
+					Library:ChangeAccent()
+				end
+			})
+			backgroundcolor = Themes:Colorpicker({
+				Name = "Background Color",
+				Flag = "UI/BackgroundColor",
+				State = Library.BackgroundColor,
+				Callback = function(v)
+					Library.BackgroundColor = v
+					Library:ChangeAccent()
+				end
+			})
+			accentcolor = Themes:Colorpicker({
+				Name = "Accent Color",
+				Flag = "UI/AccentColor",
+				State = Library.Accent,
+				Callback = function(v)
+					Library.Accent = v
+					Library.DarkerAccent = Library:GetDarkerColor(Library.Accent)
+					Library:ChangeAccent()
+				end
+			})
+			outlinecolor = Themes:Colorpicker({
+				Name = "Outline Color",
+				Flag = "UI/OutlineColor",
+				State = Library.OutlineColor,
+				Callback = function(v)
+					Library.OutlineColor = v
+					Library:ChangeAccent()
+				end
+			})
+			fontcolor = Themes:Colorpicker({
+				Name = "Font Color",
+				Flag = "UI/FontColor",
+				State = Library.FontColor,
+				Callback = function(v)
+					Library.FontColor = v
+					Library:ChangeAccent()
+				end
+			})
+			Menu:Keybind({
+				Name = "UI Toggle",
+				Flag = "MenuKey",
+				Default = Enum.KeyCode.End,
+				Mode = "Toggle",
+				Callback = Library.SetOpen
+			})
+			Menu:Toggle({
+				Name = "Keybind List",
+				Flag = "KeybindList",
+				Callback = function(v)
+					Library.KeyList:SetVisible(v)
+				end
+			})
+			Menu:Button({
+				Name = "Unload",
+				Callback = function()
+					Library:Unload()
+				end
+			})
+			randomfunc = Cfgs:Textbox({
+				Flag = "SettingsConfigurationName",
+				Name = "Config name"
+			})
+			Cfgs:Button({
+				Name = "Create",
+				Callback = function()
+					local ConfigName = Library.Flags["SettingsConfigurationName"]
+					if ConfigName and ConfigName ~= "" or not isfile(ConfigFolder .. "/configs/" .. ConfigName) then
+						writefile(ConfigFolder .. "/configs/" .. ConfigName, Library:GetConfig())
+						UpdateConfigList()
+						randomfunc:set("")
+						CFGList:Set(ConfigName)
+						Library:Notification("Config Created: " .. ConfigName, 3, nil, "Top")
+					end
+				end
+			})
+			CFGList = Cfgs:Dropdown({
+				Name = "Saved Configs",
+				Flag = "SettingConfigurationList",
+				Options = {}
+			})
+			if not isfolder(ConfigFolder) then
+				makefolder(ConfigFolder)
+			end
+			if not isfolder(ConfigFolder .. "/configs") then
+				makefolder(ConfigFolder .. "/configs")
+			end
+			Cfgs:Button({
+				Name = "Save",
+				Callback = function()
+					local SelectedConfig = Library.Flags["SettingConfigurationList"]
+					if SelectedConfig then
+						writefile(ConfigFolder .. "/configs/" .. SelectedConfig, Library:GetConfig())
+						Library:Notification("Config Saved: " .. SelectedConfig, 3, nil, "Top")
+					else
+						Library:Notification("No Config Selected!", 3, nil, "Top")
+					end
+				end
+			})
+			Cfgs:Button({
+				Name = "Load",
+				Callback = function()
+					local SelectedConfig = Library.Flags["SettingConfigurationList"]
+					if SelectedConfig then
+						Library:LoadConfig(readfile(ConfigFolder .. "/configs/" .. SelectedConfig))
+						CFGList:Set(SelectedConfig)
+						Library:Notification("Config Loaded: " .. SelectedConfig, 3, nil, "Top")
+					else
+						Library:Notification("No Config Selected!", 3, nil, "Top")
+					end
+				end
+			})
+			Cfgs:Button({
+				Name = "Set Auto Load",
+				Callback = function()
+					local SelectedConfig = Library.Flags["SettingConfigurationList"]
+					if SelectedConfig then
+						writefile(ConfigFolder .. "/autoload.txt", Library.Flags["SettingConfigurationList"])
+						Library:Notification("Config Auto Loaded: " .. Library.Flags["SettingConfigurationList"], 7, nil, "Top")
+						autoloadlabel:SetText("Current Auto Load: " .. Library.Flags["SettingConfigurationList"])
+						loadedcfgshit = Library.Flags["SettingConfigurationList"]
+					else
+						Library:Notification("No Config Selected!", 3, nil, "Top")
+					end
+				end
+			})
+			Cfgs:Button({
+				Name = "Delete",
+				Callback = function()
+					local SelectedConfig = Library.Flags["SettingConfigurationList"]
+					if SelectedConfig then
+						delfile(ConfigFolder .. "/configs/" .. SelectedConfig)
+						Library:Notification("Config Deleted: " .. SelectedConfig, 3, nil, "Top")
+						UpdateConfigList()
+						CFGList:Set()
+						if SelectedConfig == loadedcfgshit then
+							autoloadlabel:SetText("Current Auto Load: None")
+							delfile(ConfigFolder .. "/autoload.txt")
+						end
+					else
+						Library:Notification("No Config Selected!", 3, nil, "Top")
+					end
+				end
+			})
+			Cfgs:Button({
+				Name = "Refresh",
+				Callback = function()
+					UpdateConfigList()
+					Library:Notification("Config List Refreshed", 3, nil, "Top")
+				end
+			})
+			UpdateConfigList()
+			autoloadlabel = Cfgs:Label({
+				Name = "Current Auto Load:",
+				Centered = true
+			})
+			Library:SetOpen()
+
+			if isfile(ConfigFolder .. "/autoload.txt") then
+				loadedcfgshit = readfile(ConfigFolder .. "/autoload.txt")
+				local configFile = ConfigFolder .. "/configs/" .. loadedcfgshit
+				if isfile(configFile) then
+					autoloadlabel:SetText("Current Auto Load: " .. loadedcfgshit)
+					Library:LoadConfig(readfile(configFile))
+					CFGList:Set(loadedcfgshit)
+				else
+					autoloadlabel:SetText("Current Auto Load: None")
+				end
+			else
+				autoloadlabel:SetText("Current Auto Load: None")
+			end
+		end
+	end)
+
 	return Library
 end
