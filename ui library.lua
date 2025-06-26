@@ -1971,7 +1971,7 @@ do
 			LineHeight = 1.1,
 		}
 		if Properties.LayoutOrder then
-			tableidkfreakthiscoding[LayoutOrder] = Properties.LayoutOrder
+			tableidkfreakthiscoding.LayoutOrder = Properties.LayoutOrder
 		end
 		local TabButton = Library:Create('TextButton', tableidkfreakthiscoding)
 		local TabAccent = Library:Create('Frame', {
