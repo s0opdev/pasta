@@ -153,7 +153,7 @@ function Library:TweenProperty(object, property, endValue, duration)
 	end)
 	return tween
 end
-local function Create(Class, Properties, Secure)
+function Library:Create(Class, Properties, Secure)
 	local instance = Instance.new(Class)
 	
 	if Secure then
@@ -288,7 +288,7 @@ function Library:Notification(message, duration, color, position)
 			Container = nil,
 			Objects = {}
 		}
-		local NotifContainer = Create("Frame", {
+		local NotifContainer = Library:Create("Frame", {
 			Parent = Library.ScreenGui,
 			BackgroundColor3 = Color3.new(1, 1, 1),
 			BackgroundTransparency = 1,
@@ -296,13 +296,13 @@ function Library:Notification(message, duration, color, position)
 			BorderColor3 = Color3.new(0, 0, 0),
 			ZIndex = 99999999,
 		})
-		local Background = Create("Frame", {
+		local Background = Library:Create("Frame", {
 			Parent = NotifContainer,
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundColor3 = Color3.new(0.0588, 0.0588, 0.0784),
 			BorderColor3 = Color3.new(0.1373, 0.1373, 0.1569)
 		})
-		local Outline = Create('Frame', {
+		local Outline = Library:Create('Frame', {
 			Parent = Background,
 			Position = UDim2.new(0, -1, 0, -1),
 			Size = UDim2.new(1, 2, 1, 2),
@@ -311,10 +311,10 @@ function Library:Notification(message, duration, color, position)
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0),
 		})
-		local UIStroke = Create('UIStroke', {
+		local UIStroke = Library:Create('UIStroke', {
 			Parent = Outline
 		})
-		local TextLabel = Create('TextLabel', {
+		local TextLabel = Library:Create('TextLabel', {
 			Parent = Background,
 			Position = UDim2.new(0, 1, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
@@ -329,14 +329,14 @@ function Library:Notification(message, duration, color, position)
 			AutomaticSize = Enum.AutomaticSize.X,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		})
-		local Accemt = Create('Frame', {
+		local Accemt = Library:Create('Frame', {
 			Parent = Background,
 			Size = UDim2.new(1, 0, 0, 2),
 			BackgroundColor3 = "Accent",
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0),
 		})
-		local Progress = Create('Frame', {
+		local Progress = Library:Create('Frame', {
 			Parent = Background,
 			Position = UDim2.new(0, 0, 1, -1),
 			Size = UDim2.new(0, 0, 0, 1),
@@ -618,7 +618,7 @@ function Library:KeybindList()
 		UDim2.new(0, 0, 0, 0)
 	}
 	Library.KeyList = KeyList
-	local KeybindOuter = Create('Frame', {
+	local KeybindOuter = Library:Create('Frame', {
 		AnchorPoint = Vector2.new(0, 0.5),
 		BorderColor3 = Color3.new(0, 0, 0),
 		Position = UDim2.new(0, 10, 0.5, 0),
@@ -626,20 +626,20 @@ function Library:KeybindList()
 		Visible = false,
 		Parent = Library.ScreenGui
 	})
-	local KeybindInner = Create('Frame', {
+	local KeybindInner = Library:Create('Frame', {
 		BackgroundColor3 = "MainColor",
 		BorderColor3 = "OutlineColor",
 		BorderMode = Enum.BorderMode.Inset,
 		Size = UDim2.new(1, 0, 1, 0),
 		Parent = KeybindOuter
 	})
-	Create('Frame', {
+	Library:Create('Frame', {
 		BackgroundColor3 = "Accent";
 		BorderSizePixel = 0;
 		Size = UDim2.new(1, 0, 0, 2);
 		Parent = KeybindInner;
 	});
-	local KeybindLabel = Create('TextButton', {
+	local KeybindLabel = Library:Create('TextButton', {
 		Size = UDim2.new(1, 0, 0, 20),
 		Position = UDim2.fromOffset(5, 2),
 		TextXAlignment = Enum.TextXAlignment.Left,
@@ -653,18 +653,18 @@ function Library:KeybindList()
 		Parent = KeybindInner
 	})
 
-	local KeybindContainer = Create('Frame', {
+	local KeybindContainer = Library:Create('Frame', {
 		BackgroundTransparency = 1,
 		Size = UDim2.new(1, -10, 1, -30),
 		Position = UDim2.new(0, 5, 0, 26),
 		Parent = KeybindInner
 	})
-	Create('UIListLayout', {
+	Library:Create('UIListLayout', {
 		FillDirection = Enum.FillDirection.Vertical,
 		SortOrder = Enum.SortOrder.LayoutOrder,
 		Parent = KeybindContainer
 	})
-	Create('UIPadding', {
+	Library:Create('UIPadding', {
 		PaddingLeft = UDim.new(0, -8),
 		Parent = KeybindContainer
 	})
@@ -717,7 +717,7 @@ function Library:KeybindList()
 		end
 		local KeyValue = {}
 		local TextShit = Mode and tostring(" [" .. Key .. "] " .. Name .. " (" .. Mode .. ") ") or tostring(" [" .. Key .. "] " .. Name)
-		local NewValue = Create('TextLabel', {
+		local NewValue = Library:Create('TextLabel', {
 			Parent = KeybindContainer,
 			Size = UDim2.new(1, -10, 0, 15),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -767,7 +767,7 @@ end
 --
 function Library:NewPicker(default, parent, count, flag, callback)
 	-- // Instances
-	local Icon = Create('TextButton', {
+	local Icon = Library:Create('TextButton', {
 		Parent = parent,
 		Position = UDim2.new(1, - (count * 20) - (count * 6), 0.5, 0),
 		Size = UDim2.new(0, 20, 0, 10),
@@ -777,14 +777,14 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		AutoButtonColor = false,
 		Text = ""
 	})
-	local IconInline = Create('Frame', {
+	local IconInline = Library:Create('Frame', {
 		Parent = Icon,
 		Position = UDim2.new(0, 1, 0, 1),
 		Size = UDim2.new(1, -2, 1, -2),
 		BackgroundColor3 = default,
 		BorderSizePixel = 0
 	})
-	local ColorWindow = Create('Frame', {
+	local ColorWindow = Library:Create('Frame', {
 		Parent = parent,
 		Position = UDim2.new(1, -2, 1, 2),
 		Size = UDim2.new(0, 188, 0, 170),
@@ -795,7 +795,7 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		Rotation = 0.00001,
 		Visible = false
 	})
-	local WindowInline = Create('Frame', {
+	local WindowInline = Library:Create('Frame', {
 		Parent = ColorWindow,
 		Position = UDim2.new(0, 1, 0, 1),
 		Size = UDim2.new(1, -2, 1, -2),
@@ -803,7 +803,7 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		BorderSizePixel = 0,
 		ZIndex = 100
 	})
-	local Color = Create('TextButton', {
+	local Color = Library:Create('TextButton', {
 		Parent = WindowInline,
 		Position = UDim2.new(0, 8, 0, 10),
 		Size = UDim2.new(0, 150, 0, 150),
@@ -816,7 +816,7 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		TextSize = 14,
 		ZIndex = 100
 	})
-	local Sat = Create('ImageLabel', {
+	local Sat = Library:Create('ImageLabel', {
 		Parent = Color,
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = Color3.new(1, 1, 1),
@@ -826,7 +826,7 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		Image = getcustomasset(Library.Folder .. "sat.jpg"),
 		ZIndex = 100
 	})
-	Create('ImageLabel', {
+	Library:Create('ImageLabel', {
 		Parent = Color,
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundColor3 = Color3.new(1, 1, 1),
@@ -836,7 +836,7 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		Image = getcustomasset(Library.Folder .. "val.jpg"),
 		ZIndex = 100
 	})
-	local Pointer = Create('Frame', {
+	local Pointer = Library:Create('Frame', {
 		Parent = Color,
 		Position = UDim2.new(1, 0, 1, 0),
 		Size = UDim2.new(0, 1, 0, 1),
@@ -844,7 +844,7 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		BorderColor3 = Color3.new(0, 0, 0),
 		ZIndex = 100
 	})
-	Create('Frame', {
+	Library:Create('Frame', {
 		Parent = Color,
 		Position = UDim2.new(0, -2, 1, 5),
 		Size = UDim2.new(0, 189, 0, 55),
@@ -853,7 +853,7 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		BorderColor3 = Color3.new(0, 0, 0),
 		ZIndex = 100
 	})
-	local ColorOutline = Create('Frame', {
+	local ColorOutline = Library:Create('Frame', {
 		Parent = Color,
 		Position = UDim2.new(0, -1, 0, -1),
 		Size = UDim2.new(1, 2, 1, 2),
@@ -863,11 +863,11 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		BorderColor3 = Color3.new(0, 0, 0),
 		ZIndex = 100
 	})
-	Create('UIStroke', {
+	Library:Create('UIStroke', {
 		Parent = ColorOutline,
 		Color = Color3.fromRGB(45, 45, 45)
 	})
-	local Hue = Create('ImageButton', {
+	local Hue = Library:Create('ImageButton', {
 		Parent = Color,
 		Position = UDim2.new(1, 10, 0, 0),
 		Size = UDim2.new(0, 10, 1, 0),
@@ -877,7 +877,7 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		AutoButtonColor = false,
 		ZIndex = 100
 	})
-	local HueOutline = Create('Frame', {
+	local HueOutline = Library:Create('Frame', {
 		Parent = Hue,
 		Position = UDim2.new(0, -1, 0, -1);
 		Size = UDim2.new(1, 2, 1, 2);
@@ -887,18 +887,18 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		BorderColor3 = Color3.new(0, 0, 0);
 		ZIndex = 100
 	})
-	Create('UIStroke', {
+	Library:Create('UIStroke', {
 		Parent = HueOutline;
 		Color = Color3.fromRGB(45, 45, 45)
 	})
-	local HueSlide = Create('Frame', {
+	local HueSlide = Library:Create('Frame', {
 		Parent = Hue;
 		Size = UDim2.new(1, 0, 0, 3),
 		BackgroundColor3 = Color3.new(1, 1, 1),
 		BorderColor3 = Color3.new(0, 0, 0),
 		ZIndex = 100
 	})
-	local ModeOutline = Create('Frame', {
+	local ModeOutline = Library:Create('Frame', {
 		Parent = parent,
 		Position = UDim2.new(1, 65, 0.5, 0),
 		Size = UDim2.new(0, 60, 0, 12),
@@ -910,7 +910,7 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		Visible = false,
 		ZIndex = 1020000010
 	})
-	local ModeInline = Create('Frame', {
+	local ModeInline = Library:Create('Frame', {
 		Parent = ModeOutline,
 		Position = UDim2.new(0, 1, 0, 1),
 		Size = UDim2.new(1, -2, 1, -2),
@@ -919,11 +919,11 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		BorderColor3 = Color3.new(0, 0, 0),
 		ZIndex = 1020000010
 	})
-	Create('UIListLayout', {
+	Library:Create('UIListLayout', {
 		Parent = ModeInline;
 		SortOrder = Enum.SortOrder.LayoutOrder
 	})
-	local Hold = Create('TextButton', {
+	local Hold = Library:Create('TextButton', {
 		Parent = ModeInline;
 		Size = UDim2.new(1, 0, 0, 15),
 		BackgroundColor3 = Color3.new(1, 1, 1),
@@ -938,7 +938,7 @@ function Library:NewPicker(default, parent, count, flag, callback)
 		TextStrokeTransparency = 0,
 		ZIndex = 1020000010
 	})
-	local Toggle = Create('TextButton', {
+	local Toggle = Library:Create('TextButton', {
 		Parent = ModeInline;
 		Size = UDim2.new(1, 0, 0, 15),
 		BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1119,11 +1119,11 @@ do
 			Size = UDim2.new(0, 580, 0, 625)
 		};
 		Library.Window = Window
-		Library.ScreenGui = Create("ScreenGui", {
+		Library.ScreenGui = Library:Create("ScreenGui", {
 			Parent = gethui(),
 			DisplayOrder = 2
 		}, true)
-		local Outline = Create('Frame', {
+		local Outline = Library:Create('Frame', {
 			Parent = Library.ScreenGui,
 			Position = UDim2.new(0.5, 0, 0.5, 0),
 			Size = Window.Size,
@@ -1132,7 +1132,7 @@ do
 			AnchorPoint = Vector2.new(0.5, 0.5),
 			Visible = false
 		})
-		Create('ImageLabel', {
+		Library:Create('ImageLabel', {
 			Parent = Outline,
 			ImageColor3 = "Accent",
 			Image = getcustomasset(Library.Folder .. "highlight.jpg"),
@@ -1144,7 +1144,7 @@ do
 			SliceCenter = Rect.new(Vector2.new(21, 21), Vector2.new(79, 79)),
 			ZIndex = -1
 		})
-		local Inline = Create('Frame', {
+		local Inline = Library:Create('Frame', {
 			Parent = Outline,
 			Position = UDim2.new(0, 1, 0, 1),
 			Size = UDim2.new(1, -2, 1, -2),
@@ -1152,21 +1152,21 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		Create('Frame', {
+		Library:Create('Frame', {
 			Parent = Inline,
 			Size = UDim2.new(1, 0, 0, 2),
 			BackgroundColor3 = "Accent",
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local HolderOutline = Create('Frame', {
+		local HolderOutline = Library:Create('Frame', {
 			Parent = Inline,
 			Position = UDim2.new(0, 7, 0, 21),
 			Size = UDim2.new(1, -14, 1, -38),
 			BackgroundColor3 = "OutlineColor",
 			BorderColor3 = Color3.new(0.0392, 0.0392, 0.0392)
 		})
-		local HolderInline = Create('Frame', {
+		local HolderInline = Library:Create('Frame', {
 			Parent = HolderOutline,
 			Position = UDim2.new(0, 1, 0, 1),
 			Size = UDim2.new(1, -2, 1, -2),
@@ -1174,7 +1174,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Tabs = Create('Frame', {
+		local Tabs = Library:Create('Frame', {
 			Parent = HolderInline,
 			Size = UDim2.new(1, 0, 0, 22),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1182,12 +1182,12 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		Create('UIListLayout', {
+		Library:Create('UIListLayout', {
 			Parent = Tabs,
 			FillDirection = Enum.FillDirection.Horizontal,
 			SortOrder = Enum.SortOrder.LayoutOrder
 		})
-		local DragButton = Create('TextButton', {
+		local DragButton = Library:Create('TextButton', {
 			Parent = Outline,
 			Size = UDim2.new(1, 0, 0, 21),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1254,7 +1254,7 @@ do
 		}
 		--
 
-		local TabButton = Create('TextButton', {
+		local TabButton = Library:Create('TextButton', {
 			Parent = Page.Window.Elements.TabHolder,
 			Size = UDim2.new(0.25, 0, 1, 0),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1272,14 +1272,14 @@ do
 		if Properties and Properties.LastPage then
 			TabButton.LayoutOrder = 99999
 		end
-		local TabAccent = Create('Frame', {
+		local TabAccent = Library:Create('Frame', {
 			Parent = TabButton,
 			Size = UDim2.new(1, 0, 0, 2),
 			BackgroundColor3 = "Accent",
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0),
 		})
-		local Left = Create('ScrollingFrame', {
+		local Left = Library:Create('ScrollingFrame', {
 			Parent = Page.Window.Elements.Holder,
 			Position = UDim2.new(0, 5, 0, 31),
 			Size = UDim2.new(0.485, -3, 1, -32),
@@ -1291,7 +1291,7 @@ do
 			ScrollBarThickness = 0,
 			BackgroundTransparency = 1
 		})
-		local Right = Create('ScrollingFrame', {
+		local Right = Library:Create('ScrollingFrame', {
 			Parent = Page.Window.Elements.Holder,
 			Position = UDim2.new(0.5, 5, 0, 31),
 			Size = UDim2.new(0.485, -3, 1, -32),
@@ -1303,25 +1303,25 @@ do
 			ScrollBarThickness = 0,
 			BackgroundTransparency = 1
 		})
-		local UIListLayout = Create('UIListLayout', {
+		local UIListLayout = Library:Create('UIListLayout', {
 			Parent = Left,
 			FillDirection = Enum.FillDirection.Vertical;
 			SortOrder = Enum.SortOrder.LayoutOrder;
 			HorizontalAlignment = Enum.HorizontalAlignment.Center;
 			Padding = UDim.new(0, 12)
 		})
-		local UIListLayout_2 = Create('UIListLayout', {
+		local UIListLayout_2 = Library:Create('UIListLayout', {
 			Parent = Right,
 			FillDirection = Enum.FillDirection.Vertical;
 			SortOrder = Enum.SortOrder.LayoutOrder;
 			HorizontalAlignment = Enum.HorizontalAlignment.Center;
 			Padding = UDim.new(0, 12)
 		})
-		Create('UIPadding', {
+		Library:Create('UIPadding', {
 			Parent = Left,
 			PaddingTop = UDim.new(0, 4)
 		})
-		Create('UIPadding', {
+		Library:Create('UIPadding', {
 			Parent = Right,
 			PaddingTop = UDim.new(0, 4)
 		})
@@ -1402,14 +1402,14 @@ do
 			Content = {},
 		}
 		--
-		local SectionOutline = Create('Frame', {
+		local SectionOutline = Library:Create('Frame', {
 			Parent = Section.Side == "left" and Section.Page.Elements.Left or Section.Side == "right" and Section.Page.Elements.Right,
 			Size = UDim2.new(1, 0, 0, 20),
 			BackgroundColor3 = "OutlineColor",
 			BorderColor3 = Color3.new(0.0392, 0.0392, 0.0392),
 			AutomaticSize = Enum.AutomaticSize.Y,
 		})
-		local SectionInline = Create('Frame', {
+		local SectionInline = Library:Create('Frame', {
 			Parent = SectionOutline,
 			Position = UDim2.new(0, 1, 0, 1),
 			Size = UDim2.new(1, -2, 1, -2),
@@ -1417,7 +1417,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Container = Create('Frame', {
+		local Container = Library:Create('Frame', {
 			Parent = SectionInline,
 			Position = UDim2.new(0, 7, 0, 12),
 			Size = UDim2.new(1, -14, 1, -10),
@@ -1427,12 +1427,12 @@ do
 			BorderColor3 = Color3.new(0, 0, 0),
 			AutomaticSize = Enum.AutomaticSize.Y
 		})
-		Create('UIListLayout', {
+		Library:Create('UIListLayout', {
 			Parent = Container,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 			Padding = UDim.new(0, 10)
 		})
-		Create('Frame', {
+		Library:Create('Frame', {
 			Parent = Container,
 			Position = UDim2.new(0, 0, 1, 0),
 			Size = UDim2.new(1, 0, 0, 2),
@@ -1442,14 +1442,14 @@ do
 			BorderColor3 = Color3.new(0, 0, 0),
 			LayoutOrder = 1000
 		})
-		Create('Frame', {
+		Library:Create('Frame', {
 			Parent = SectionInline,
 			Size = UDim2.new(1, 0, 0, 2),
 			BackgroundColor3 = "Accent",
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Title = Create('TextLabel', {
+		local Title = Library:Create('TextLabel', {
 			Parent = SectionOutline,
 			Position = UDim2.new(0, 10, 0, -6),
 			Size = UDim2.new(0, 100, 0, 16),
@@ -1465,7 +1465,7 @@ do
 			Text = Section.Name,
 			TextStrokeTransparency = 0
 		})
-		local TextBorder = Create('Frame', {
+		local TextBorder = Library:Create('Frame', {
 			Parent = SectionOutline,
 			Position = UDim2.new(0, 6, 0, -2),
 			Size = UDim2.new(0, Title.TextBounds.X + 8, 0, 4),
@@ -1527,7 +1527,7 @@ do
 			ListValue = nil,
 		}
 		--
-		local NewToggle = Create('TextButton', {
+		local NewToggle = Library:Create('TextButton', {
 			Parent = Toggle.Section.Elements.SectionContent,
 			Size = UDim2.new(1, 0, 0, 10),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1540,13 +1540,13 @@ do
 			FontFace = Library.Font,
 			TextSize = 14
 		})
-		local Outline = Create('Frame', {
+		local Outline = Library:Create('Frame', {
 			Parent = NewToggle,
 			Size = UDim2.new(0, 10, 0, 10),
 			BackgroundColor3 = "OutlineColor",
 			BorderColor3 = Color3.new(0.0392, 0.0392, 0.0392)
 		})
-		local Inline = Create('Frame', {
+		local Inline = Library:Create('Frame', {
 			Parent = Outline,
 			Position = UDim2.new(0, 1, 0, 1),
 			Size = UDim2.new(1, -2, 1, -2),
@@ -1554,7 +1554,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Title = Create('TextLabel', {
+		local Title = Library:Create('TextLabel', {
 			Parent = NewToggle,
 			Position = UDim2.new(0, 15, 0, 0),
 			Size = UDim2.new(1, 0, 0, 10),
@@ -1657,7 +1657,7 @@ do
 			}
 			local Key
 			--
-			local Outline = Create('TextButton', {
+			local Outline = Library:Create('TextButton', {
 				Parent = NewToggle,
 				Position = UDim2.new(1, 0, 0.5, 0),
 				Size = UDim2.new(0, 40, 0, 12),
@@ -1667,7 +1667,7 @@ do
 				Text = "",
 				AutoButtonColor = false
 			})
-			local Inline = Create('Frame', {
+			local Inline = Library:Create('Frame', {
 				Parent = Outline,
 				Position = UDim2.new(0, 1, 0, 1),
 				Size = UDim2.new(1, -2, 1, -2),
@@ -1675,7 +1675,7 @@ do
 				BorderSizePixel = 0,
 				BorderColor3 = Color3.new(0, 0, 0)
 			})
-			local Value = Create('TextLabel', {
+			local Value = Library:Create('TextLabel', {
 				Parent = Inline,
 				Size = UDim2.new(1, 0, 1, 0),
 				BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1689,7 +1689,7 @@ do
 				TextStrokeTransparency = 0
 			})
 
-			local ModeOutline = Create('Frame', {
+			local ModeOutline = Library:Create('Frame', {
 				Parent = NewToggle,
 				Position = UDim2.new(1, 65, 0.5, 0),
 				Size = UDim2.new(0, 60, 0, 12),
@@ -1701,7 +1701,7 @@ do
 				Visible = false,
 				ZIndex = 1020000010
 			})
-			local ModeInline = Create('Frame', {
+			local ModeInline = Library:Create('Frame', {
 				Parent = ModeOutline,
 				Position = UDim2.new(0, 1, 0, 1),
 				Size = UDim2.new(1, -2, 1, -2),
@@ -1710,11 +1710,11 @@ do
 				BorderColor3 = Color3.new(0, 0, 0),
 				ZIndex = 1020000010
 			})
-			Create('UIListLayout', {
+			Library:Create('UIListLayout', {
 				Parent = ModeInline,
 				SortOrder = Enum.SortOrder.LayoutOrder
 			})
-			local Hold = Create('TextButton', {
+			local Hold = Library:Create('TextButton', {
 				Parent = ModeInline,
 				Size = UDim2.new(1, 0, 0, 15),
 				BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1729,7 +1729,7 @@ do
 				TextStrokeTransparency = 0,
 				ZIndex = 1020000010
 			})
-			local Toggle = Create('TextButton', {
+			local Toggle = Library:Create('TextButton', {
 				Parent = ModeInline,
 				Size = UDim2.new(1, 0, 0, 15),
 				BackgroundColor3 = Color3.new(1, 1, 1),
@@ -2029,7 +2029,7 @@ do
 		}
 		local TextValue = ("[value]" .. Slider.Sub)
 		--
-		local NewSlider = Create('TextButton', {
+		local NewSlider = Library:Create('TextButton', {
 			Parent = Slider.Section.Elements.SectionContent,
 			Size = UDim2.new(1, 0, 0, 22),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -2042,7 +2042,7 @@ do
 			FontFace = Library.Font,
 			TextSize = 14,
 		})
-		local Outline = Create('Frame', {
+		local Outline = Library:Create('Frame', {
 			Parent = NewSlider,
 			Position = UDim2.new(0, 15, 1, 0),
 			Size = UDim2.new(1, -30, 0, 7),
@@ -2050,7 +2050,7 @@ do
 			BorderColor3 = Color3.new(0.0392, 0.0392, 0.0392),
 			AnchorPoint = NewVector2(0, 1)
 		})
-		local Inline = Create('Frame', {
+		local Inline = Library:Create('Frame', {
 			Parent = Outline,
 			Position = UDim2.new(0, 1, 0, 1),
 			Size = UDim2.new(1, -2, 1, -2),
@@ -2058,7 +2058,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Accent = Create('TextButton', {
+		local Accent = Library:Create('TextButton', {
 			Parent = Inline,
 			Size = UDim2.new(0, 0, 1, 0),
 			BackgroundColor3 = "Accent",
@@ -2070,7 +2070,7 @@ do
 			FontFace = Library.Font,
 			TextSize = 14
 		})
-		local Add = Create('TextButton', {
+		local Add = Library:Create('TextButton', {
 			Parent = Outline,
 			Position = UDim2.new(1, 5, 0.5, 0),
 			Size = UDim2.new(0, 10, 0, 10),
@@ -2086,7 +2086,7 @@ do
 			TextSize = Library.FontSize,
 			TextStrokeTransparency = 0
 		})
-		local Subtract = Create('TextButton', {
+		local Subtract = Library:Create('TextButton', {
 			Parent = Outline,
 			Position = UDim2.new(0, -15, 0.5, 0),
 			Size = UDim2.new(0, 10, 0, 10),
@@ -2102,7 +2102,7 @@ do
 			TextSize = Library.FontSize,
 			TextStrokeTransparency = 0
 		})
-		local Title = Create('TextLabel', {
+		local Title = Library:Create('TextLabel', {
 			Parent = NewSlider,
 			Position = UDim2.new(0, 15, 0, 0),
 			Size = UDim2.new(1, 0, 0, 10),
@@ -2117,7 +2117,7 @@ do
 			Text = Slider.Name,
 			TextStrokeTransparency = 0,
 		})
-		local Value = Create('TextBox', {
+		local Value = Library:Create('TextBox', {
 			Parent = NewSlider,
 			Position = UDim2.new(0, 15, 0, 0),
 			Size = UDim2.new(1, -30, 0, 10),
@@ -2264,7 +2264,7 @@ do
 			OptionInsts = {},
 		}
 		--
-		local NewDrop = Create('Frame', {
+		local NewDrop = Library:Create('Frame', {
 			Parent = Dropdown.Section.Elements.SectionContent,
 			Size = UDim2.new(1.12, 0, 0, 30),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -2272,7 +2272,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Outline = Create('TextButton', {
+		local Outline = Library:Create('TextButton', {
 			Parent = NewDrop,
 			Position = UDim2.new(0, 0, 1, 1),
 			Size = UDim2.new(1, -30, 0, 17),
@@ -2282,7 +2282,7 @@ do
 			Text = "",
 			AutoButtonColor = false
 		})
-		local Inline = Create('Frame', {
+		local Inline = Library:Create('Frame', {
 			Parent = Outline,
 			Position = UDim2.new(0, 1, 0, 1),
 			Size = UDim2.new(1, -2, 1, -2),
@@ -2290,7 +2290,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Value = Create('TextLabel', {
+		local Value = Library:Create('TextLabel', {
 			Parent = Inline,
 			Position = UDim2.new(0, 4, 0, 0),
 			Size = UDim2.new(1, -30, 1, 0),
@@ -2306,7 +2306,7 @@ do
 			TextStrokeTransparency = 0,
 			TextWrapped = true
 		})
-		local Icon = Create('TextLabel', {
+		local Icon = Library:Create('TextLabel', {
 			Parent = Inline,
 			Position = UDim2.new(0, -5, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
@@ -2321,7 +2321,7 @@ do
 			TextXAlignment = Enum.TextXAlignment.Right,
 			TextStrokeTransparency = 0
 		})
-		local Title = Create('TextLabel', {
+		local Title = Library:Create('TextLabel', {
 			Parent = NewDrop,
 			Position = UDim2.new(0, 0, 0, 0),
 			Size = UDim2.new(1, 0, 0, 10),
@@ -2336,7 +2336,7 @@ do
 			TextStrokeTransparency = 0,
 			Text = Dropdown.Name
 		})
-		local ContainerOutline = Create('Frame', {
+		local ContainerOutline = Library:Create('Frame', {
 			Parent = NewDrop,
 			Position = UDim2.new(0, 0, 1, 2),
 			Size = UDim2.new(1, -30, 0, 0),
@@ -2345,7 +2345,7 @@ do
 			ZIndex = 5,
 			Visible = false
 		})
-		local ContainerInline = Create('ScrollingFrame', {
+		local ContainerInline = Library:Create('ScrollingFrame', {
 			Parent = ContainerOutline,
 			ScrollingDirection = Enum.ScrollingDirection.Y,
 			ScrollBarThickness = 3,
@@ -2359,7 +2359,7 @@ do
 			BorderColor3 = Color3.new(0, 0, 0),
 			ZIndex = 6;
 		})
-		Create('UIListLayout', {
+		Library:Create('UIListLayout', {
 			Parent = ContainerInline,
 			SortOrder = Enum.SortOrder.LayoutOrder,
 		})
@@ -2455,7 +2455,7 @@ do
 		local function createoptions(tbl)
 			for _, option in next, tbl do
 				Dropdown.OptionInsts[option] = {}
-				local NewOption = Create('TextButton', {
+				local NewOption = Library:Create('TextButton', {
 					Parent = ContainerInline,
 					Size = UDim2.new(1, 0, 0, 15),
 					BackgroundColor3 = Color3.new(1, 1, 1),
@@ -2469,7 +2469,7 @@ do
 					TextSize = 14,
 					ZIndex = 7;
 				})
-				local OptionName = Create('TextLabel', {
+				local OptionName = Library:Create('TextLabel', {
 					Parent = NewOption,
 					Position = UDim2.new(0, 2, 0, 0),
 					Size = UDim2.new(1, 0, 1, 0),
@@ -2624,7 +2624,7 @@ do
 		local Key
 		local State = false
 		--
-		local NewKey = Create('Frame', {
+		local NewKey = Library:Create('Frame', {
 			Parent = Keybind.Section.Elements.SectionContent,
 			Size = UDim2.new(1, 0, 0, 12),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -2632,7 +2632,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Outline = Create('TextButton', {
+		local Outline = Library:Create('TextButton', {
 			Parent = NewKey,
 			Position = UDim2.new(1, 0, 0.5, 0),
 			Size = UDim2.new(0, 40, 0, 12),
@@ -2642,7 +2642,7 @@ do
 			Text = "",
 			AutoButtonColor = false
 		})
-		local Inline = Create('Frame', {
+		local Inline = Library:Create('Frame', {
 			Parent = Outline,
 			Position = UDim2.new(0, 1, 0, 1),
 			Size = UDim2.new(1, -2, 1, -2),
@@ -2650,7 +2650,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Value = Create('TextLabel', {
+		local Value = Library:Create('TextLabel', {
 			Parent = Inline,
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -2663,7 +2663,7 @@ do
 			TextSize = Library.FontSize,
 			TextStrokeTransparency = 0
 		})
-		local Title = Create('TextLabel', {
+		local Title = Library:Create('TextLabel', {
 			Parent = NewKey,
 			Position = UDim2.new(0, 15, 0, 0),
 			Size = UDim2.new(1, 0, 0, 10),
@@ -2678,7 +2678,7 @@ do
 			Text = Keybind.Name,
 			TextStrokeTransparency = 0
 		})
-		local ModeOutline = Create('Frame', {
+		local ModeOutline = Library:Create('Frame', {
 			Parent = NewKey,
 			Position = UDim2.new(1, 65, 0.5, 0),
 			Size = UDim2.new(0, 60, 0, 12),
@@ -2690,7 +2690,7 @@ do
 			Visible = false,
 			ZIndex = 1020000010
 		})
-		local ModeInline = Create('Frame', {
+		local ModeInline = Library:Create('Frame', {
 			Parent = ModeOutline,
 			Position = UDim2.new(0, 1, 0, 1),
 			Size = UDim2.new(1, -2, 1, -2),
@@ -2699,11 +2699,11 @@ do
 			BorderColor3 = Color3.new(0, 0, 0),
 			ZIndex = 1020000010
 		})
-		Create('UIListLayout', {
+		Library:Create('UIListLayout', {
 			Parent = ModeInline,
 			SortOrder = Enum.SortOrder.LayoutOrder
 		})
-		local Hold = Create('TextButton', {
+		local Hold = Library:Create('TextButton', {
 			Parent = ModeInline,
 			Size = UDim2.new(1, 0, 0, 15),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -2718,7 +2718,7 @@ do
 			TextStrokeTransparency = 0,
 			ZIndex = 1020000010
 		})
-		local Toggle = Create('TextButton', {
+		local Toggle = Library:Create('TextButton', {
 			Parent = ModeInline,
 			Size = UDim2.new(1, 0, 0, 15),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -2733,7 +2733,7 @@ do
 			TextStrokeTransparency = 0,
 			ZIndex = 1020000010
 		})
-		local Always = Create('TextButton', {
+		local Always = Library:Create('TextButton', {
 			Parent = ModeInline,
 			Size = UDim2.new(1, 0, 0, 15),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -2998,7 +2998,7 @@ do
 			Colorpickers = 0,
 		}
 		--
-		local NewToggle = Create('Frame', {
+		local NewToggle = Library:Create('Frame', {
 			Parent = Colorpicker.Section.Elements.SectionContent,
 			Size = UDim2.new(1, 0, 0, 10),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -3006,7 +3006,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local TextLabel = Create('TextLabel', {
+		local TextLabel = Library:Create('TextLabel', {
 			Parent = NewToggle,
 			Position = UDim2.new(0, 15, 0, 0),
 			Size = UDim2.new(0, 100, 1, 0),
@@ -3087,7 +3087,7 @@ do
 			),
 		}
 		--
-		local NewDrop = Create('Frame', {
+		local NewDrop = Library:Create('Frame', {
 			Parent = Textbox.Section.Elements.SectionContent,
 			Size = UDim2.new(1.12, 0, 0, 30),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -3095,7 +3095,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Outline = Create('TextButton', {
+		local Outline = Library:Create('TextButton', {
 			Parent = NewDrop,
 			Position = UDim2.new(0, 0, 1, 1),
 			Size = UDim2.new(1, -30, 0, 17),
@@ -3105,7 +3105,7 @@ do
 			Text = "",
 			AutoButtonColor = false
 		})
-		local Inline = Create('Frame', {
+		local Inline = Library:Create('Frame', {
 			Parent = Outline,
 			Position = UDim2.new(0, 1, 0, 1),
 			Size = UDim2.new(1, -2, 1, -2),
@@ -3113,7 +3113,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Value = Create('TextBox', {
+		local Value = Library:Create('TextBox', {
 			Parent = Inline,
 			Position = UDim2.new(0, 4, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
@@ -3130,7 +3130,7 @@ do
 			Text = Textbox.State,
 			ClearTextOnFocus = false
 		})
-		local Title = Create('TextLabel', {
+		local Title = Library:Create('TextLabel', {
 			Parent = NewDrop,
 			Position = UDim2.new(0, 0, 0, 0),
 			Size = UDim2.new(1, 0, 0, 10),
@@ -3192,7 +3192,7 @@ do
 			),
 		}
 		--
-		local NewButton = Create('TextButton', {
+		local NewButton = Library:Create('TextButton', {
 			Parent = Button.Section.Elements.SectionContent,
 			Size = UDim2.new(1.12, 0, 0, 14),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -3205,7 +3205,7 @@ do
 			FontFace = Library.Font,
 			TextSize = 14
 		})
-		local Outline = Create('Frame', {
+		local Outline = Library:Create('Frame', {
 			Parent = NewButton,
 			Position = UDim2.new(0, 0, 1, 1),
 			Size = UDim2.new(1, -30, 0, 17),
@@ -3213,7 +3213,7 @@ do
 			BorderColor3 = Color3.new(0.0392, 0.0392, 0.0392),
 			AnchorPoint = NewVector2(0, 1)
 		})
-		local Inline = Create('Frame', {
+		local Inline = Library:Create('Frame', {
 			Parent = Outline,
 			Position = UDim2.new(0, 1, 0, 1),
 			Size = UDim2.new(1, -2, 1, -2),
@@ -3221,7 +3221,7 @@ do
 			BorderSizePixel = 0,
 			BorderColor3 = Color3.new(0, 0, 0)
 		})
-		local Value = Create('TextLabel', {
+		local Value = Library:Create('TextLabel', {
 			Parent = Inline,
 			Position = UDim2.new(0, 4, 0, 0),
 			Size = UDim2.new(1, 0, 1, 0),
@@ -3265,7 +3265,7 @@ do
 			Name = Properties.Name or "label",
 			Centered = Properties.Centered or false,
 		}
-		local NewButton = Create('TextLabel', {
+		local NewButton = Library:Create('TextLabel', {
 			Parent = Label.Section.Elements.SectionContent,
 			Size = UDim2.new(1, 0, 0, 12),
 			BackgroundColor3 = Color3.new(1, 1, 1),
