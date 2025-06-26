@@ -767,7 +767,7 @@ end
 function Library:LoadConfigTab(Window)
 	local Config = Window:Page({
 		Name = "Settings",
-		LayoutOrder = 9999
+		LastPage = true
 	})
 	do
 		local Menu = Config:Section({
@@ -1970,8 +1970,8 @@ do
 			TextStrokeTransparency = 0,
 			LineHeight = 1.1,
 		}
-		if Properties.LayoutOrder then
-			tableidkfreakthiscoding.LayoutOrder = Properties.LayoutOrder
+		if Properties.LastPage then
+			tableidkfreakthiscoding.LayoutOrder = 99999
 		end
 		local TabButton = Library:Create('TextButton', tableidkfreakthiscoding)
 		local TabAccent = Library:Create('Frame', {
