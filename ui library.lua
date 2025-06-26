@@ -1955,7 +1955,8 @@ do
 			Elements = {},
 		}
 		--
-		local tableidkfreakthiscoding = {
+
+		local TabButton = Library:Create('TextButton', {
 			Parent = Page.Window.Elements.TabHolder,
 			Size = UDim2.new(0.25, 0, 1, 0),
 			BackgroundColor3 = Color3.new(1, 1, 1),
@@ -1969,11 +1970,10 @@ do
 			TextSize = Library.FontSize,
 			TextStrokeTransparency = 0,
 			LineHeight = 1.1,
-		}
+		})
 		if Properties.LastPage then
-			tableidkfreakthiscoding.LayoutOrder = 99999
+			TabButton.LayoutOrder = 99999
 		end
-		local TabButton = Library:Create('TextButton', tableidkfreakthiscoding)
 		local TabAccent = Library:Create('Frame', {
 			Parent = TabButton,
 			Size = UDim2.new(1, 0, 0, 2),
