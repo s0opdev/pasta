@@ -1971,7 +1971,7 @@ do
 			TextStrokeTransparency = 0,
 			LineHeight = 1.1,
 		})
-		if Properties.LastPage then
+		if Properties and Properties.LastPage then
 			TabButton.LayoutOrder = 99999
 		end
 		local TabAccent = Library:Create('Frame', {
